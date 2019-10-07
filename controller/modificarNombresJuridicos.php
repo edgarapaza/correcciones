@@ -1,11 +1,13 @@
 <?php
-require '../coreapp/conection.php';
+require '../coreapp/Conexion.php';
+$conexion = new Conexion();
+$conn = $conexion->Conectar();
 
 $codigo = $_REQUEST['cod_inv'];
 
 $sql = "SELECT Cod_inv, Raz_inv FROM involjuridicas1 WHERE Cod_inv = $codigo;";
-$valores = $mysqli->query($sql);
-$datos = $valores->fetch_assoc();
+$valores = $conn->query($sql);
+$datos = $valores->fetch_array(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>

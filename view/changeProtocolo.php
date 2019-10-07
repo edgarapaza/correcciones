@@ -1,11 +1,9 @@
 <?php
+include_once "../model/EscrituraClass.php";
 session_start();
-	include_once "./model/EscrituraClass.php";
 
 	// Recoge el numero de protocolo de la session
 	$numeroProtocolo = $_SESSION['protocolo'];
-
-	
 
 	// VALORES PARA LA VISTA
     // cod_sct =0
@@ -24,13 +22,11 @@ session_start();
     //   proy_id =13
 
     $escritura = new EscrituraClass();
-	$valor1 = $escritura->Escrituras($numeroProtocolo);
-	
-	
-	$resultado = $escritura->Listado($numeroProtocolo);
+		
+	$listadoEscrituras = $escritura->Listado($numeroProtocolo);
 	$lista = array();
 
-	while($fila = $resultado->fetch_array())
+	while($fila = $listadoEscrituras->fetch_array())
 	{
 		$lista[]=$fila[0];
 	}
@@ -53,21 +49,19 @@ session_start();
 	$limite= $numeroArray;
 
 	@$cont=$_GET['contador'];
-	echo "Mi contador: ".$cont;
 
 	if ($cont+1 <= $limite && $cont >= 0 && isset($_GET['contador'])){
 	    if (isset($_GET['mas'])){
-			echo "Dentro de MAS";
-			//$cont++;
-			echo "<a href='changeProtocolo.php?mas&contador=".$cont."'>Siguiente</a>";
+	        $cont++;
 	    }
 	    if (isset($_GET['menos']) && $cont-1 > 0){
-			echo "Dentro de MENOS";
 	       $cont--;
 	    }
 	} else {
 	  $cont = 0;
 	}
+
+	$valor1 = $escritura->Escrituras($lista[$cont]);
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -81,7 +75,7 @@ session_start();
  		<title>Correccion de Escrituras</title>
  </head>
  <body>
-	<div class="container-fluid bg-danger">
+	<div class="container-fluid bg-success">
 		<div class="row">
 			<div class="col-md-8">
 				<h1>Sistema de Correccion de Escrituras</h1>
@@ -89,7 +83,7 @@ session_start();
 			</div>
 			<div class="col-md-4">
 				<br>
-				<a href="../correcciones/index.php">Nuevo Protocolo</a>
+				<a href="../index.php" class="btn btn-danger">Nuevo Protocolo</a>
 				<p>Numero de Datos:<?php echo $numeroArray; ?></p>
 				<p>Numero de Protocolo <?php echo $numeroProtocolo; ?></p>
 			</div>
@@ -100,7 +94,15 @@ session_start();
 
 	<div class="container-fluid bg-info">
 		<div class="row">
-			<div class="col-md-4">
+		<div class="col-md-1">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+                    <input name="mas" type="submit" value="Siguiente>>">
+                    <?php echo $cont ?>
+                    <input name="menos" type="submit" value="Anterior<<">
+                    <input type="hidden" name="contador" value="<?php echo $cont ?>">
+                </form>
+            </div>
+			<div class="col-md-3">
 
 			    <em>Sistema de Revision de Protocolos</em>
 
@@ -304,10 +306,6 @@ session_start();
 			                        <tr>
 			                                <td>Hora Ingreso:</td>
 			                                <td><?php echo $valor1[12];?></td>
-			                        </tr>
-			                        <tr>
-			                                <td>Numero de Proyecto:</td>
-			                                <td><?php echo $valor1[13];?></td>
 			                        </tr>
 
 			                </table>

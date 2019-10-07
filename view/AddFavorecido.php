@@ -1,6 +1,14 @@
 <?php
+require '../model/AddPersonaClass.php';
 $codEscritura = $_REQUEST['cod_sct'];
 $codPersonal = $_REQUEST['cod_per'];
+
+$nom_corregido = "TERESA";
+$paterno = "QUISPE";
+$materno = "C";
+
+$addpersona = new AddPersonaClass();
+$data = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
 
 if(isset($_REQUEST['btnBuscar']))
 {
@@ -16,9 +24,8 @@ if(isset($_REQUEST['btnBuscar']))
 	$paterno = trim($paterno1);
 	$materno = trim($materno1);
 
-	require '../model/AddPersonaClass.php';
-
-	$obj = new AddPersonaClass();
+	$data = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
+	/*
 	if($materno != null)
 	{
 	    $result = $obj->BuscarCompleto($nom_corregido, $paterno, $materno);
@@ -26,14 +33,17 @@ if(isset($_REQUEST['btnBuscar']))
 	{
 	    $result = $obj->BuscarNombre($nom_corregido, $paterno);
 	}
+	*/
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<title>Agregar Favorecido</title>
-	<link rel="stylesheet" href="css/styleform.css">
-	<link rel="stylesheet" href="css/styletable.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Agregar Otorgante</title>
 </head>
 <body>
 	<form>
@@ -63,10 +73,9 @@ if(isset($_REQUEST['btnBuscar']))
 				<td>Apellido Materno</td>
 				<td>Opciones</td>
 			</tr>
-	                                <?php
-	                                while($fila = $result->fetch_assoc())
-	                                {
-	                                ?>
+				<?php while($fila = $data->fetch_array(MYSQLI_ASSOC))
+	            	    {
+				?>
 			<tr>
 				<td><?php echo $fila['Nom_inv'];?></td>
 				<td><?php echo $fila['Pat_inv'];?></td>
@@ -82,7 +91,7 @@ if(isset($_REQUEST['btnBuscar']))
 			</tr>
 	                                 <?php
 	                                }
-	                                if($result->num_rows == 0)  
+	                                if($data->num_rows == 0)  
 	                                {
 	                                    echo "El nombre NOOOOOO existe.";
 	                                ?>

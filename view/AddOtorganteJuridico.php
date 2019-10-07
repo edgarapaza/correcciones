@@ -1,4 +1,12 @@
 <?php
+require '../model/AddPersonaClass.php';
+
+$obj = new AddPersonaClass();
+
+$razonSocial = "oro nuevo";
+
+$result = $obj->BuscarJuridico($razonSocial);
+
 $codEscritura = $_REQUEST['cod_sct'];
 $codPersonal = $_REQUEST['cod_per'];
 
@@ -11,19 +19,18 @@ if(isset($_REQUEST['btnBuscar']))
 	$nom_temp = explode(" ", $sinEspacios);
 	$razonSocial = implode($nexo, $nom_temp);
 
-	require '../model/AddPersonaClass.php';
-
-	$obj = new AddPersonaClass();
 	$result = $obj->BuscarJuridico($razonSocial);
-	
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Agregar Otorgante Juridico</title>
-        <script type="text/javascript">
-            function Guardar()
+	<script type="text/javascript">
+    	function Guardar()
             {
                 if (confirm('¿REALMENTE DESEAS AGREGAR ESTA INSTITUCION?')) {
                     document.frmGuardar.submit();
@@ -32,12 +39,12 @@ if(isset($_REQUEST['btnBuscar']))
                     alert("Cancelado");
                 }
             }
-        </script>
-       	<link rel="stylesheet" href="css/styleform.css">
-		<link rel="stylesheet" href="css/styletable.css">
-		<link rel="stylesheet" type="text/css" href="style.css">
+    </script>
+    <link rel="stylesheet" href="css/styleform.css">
+	<link rel="stylesheet" href="css/styletable.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body>	
 	<form action="" method="get">
         <input type="hidden" name="cod_sct" value="<?php echo $codEscritura; ?>" />
         <input type="hidden" name="cod_per" value="<?php echo $codPersonal; ?>" />

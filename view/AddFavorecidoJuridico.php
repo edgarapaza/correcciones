@@ -1,4 +1,9 @@
 <?php
+require '../model/AddPersonaClass.php';
+$obj = new AddPersonaClass();
+$razonSocial = "oro 33";
+$result = $obj->BuscarJuridico($razonSocial);
+
 $codEscritura = $_REQUEST['cod_sct'];
 $codPersonal = $_REQUEST['cod_per'];
 
@@ -11,18 +16,18 @@ if(isset($_REQUEST['btnBuscar']))
 	$nom_temp = explode(" ", $sinEspacios);
 	$razonSocial = implode($nexo, $nom_temp);
 
-	require '../model/AddPersonaClass.php';
-
-	$obj = new AddPersonaClass();
 	$result = $obj->BuscarJuridico($razonSocial);
-	
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Agregar Favorecido Juridico</title>
-        <script type="text/javascript">
+	<script type="text/javascript">
             function Guardar()
             {
                 if (confirm('¿REALMENTE DESEAS AGREGAR ESTA INSTITUCION?')) {

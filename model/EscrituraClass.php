@@ -4,6 +4,7 @@ require "../coreapp/Conexion.php";
 class EscrituraClass
     {
         private $conn;
+        
         function __construct(){
             
             $conection = new Conexion();
@@ -18,9 +19,8 @@ class EscrituraClass
            return $result;
         }
 
-        function Escrituras($numero) {
-
-            $sql = "SELECT cod_sct,cod_not,num_sct,cod_dst,fec_doc,cod_sub,nom_bie,can_fol,cod_pro,obs_sct,num_fol,cod_usu,hra_ing,proy_id FROM escrituras1 WHERE cod_pro = $numero";
+        function Escrituras($numeroEscritura) {
+            $sql = "SELECT cod_sct,cod_not,num_sct,cod_dst,fec_doc,cod_sub,nom_bie,can_fol,cod_pro,obs_sct,num_fol,cod_usu,hra_ing FROM escrituras1 WHERE cod_sct = $numeroEscritura";
             $rpta = $this->conn->query($sql);
             $data = $rpta->fetch_array();
             return $data;
