@@ -10,16 +10,19 @@
 
 	$datosproyecto = $escritura->DatosProyecto($numeroProyecto);
 	/* Para leer los datos del proyecto
-	proy_id = 0
-	proy_nombre = 1
-	not_id = 2
-	num_protocolo = 3
-	observaciones = 4
-	estado = 5
+	proy_id 		= 0
+	proy_nombre 	= 1
+	not_id 			= 2
+	num_protocolo 	= 3
+	observaciones 	= 4
+	estado 			= 5
 	*/
-	$codigoEscritura = $_REQUEST['codescritura'];
-	//$valor1 = $escritura->Escrituras($numeroProyecto);
-	$detalleEscrituras = $escritura->DetalleEscrituras($codigoEscritura);
+	#$codigoEscritura = $_REQUEST['codigoEscritura'];
+	#$codigoEscritura = 336665;
+	#echo "El codigo enviado es: ".$codigoEscritura;
+
+	$valor1 = $escritura->Escrituras($numeroProyecto);
+	#$detalleEscrituras = $escritura->DetalleEscrituras($codigoEscritura);
 
 	$resultado = $escritura->Listado($numeroProyecto);
 	/*  VALORES PARA LA VISTA DE LAS ESCRITURAS
@@ -44,7 +47,7 @@
 	}
 
 	//Numero total de regsitro del protocolo dentro del array
-	//$numeroArray = count($lista);
+	$numeroArray = count($lista);
 
 	/*
 	 *     TODO EL LISTADO PROVENIENTE DEL ARRAY SE ALMACENA
@@ -54,7 +57,7 @@
 	for($i=0;$i<=count($lista)-1;$i++){
 	   echo $lista[$i]."<br>";
 	}
-	
+	*/
 	$limite= $numeroArray;
 
 	@$cont=$_GET['contador'];
@@ -70,8 +73,7 @@
 	  $cont = 0;
 	}
 
-	 *
-	 */
+	$detalleEscrituras = $escritura->DetalleEscrituras($lista[$cont]);
 	
  ?>
  <!DOCTYPE html>
@@ -90,7 +92,7 @@
 		<div class="row">
 			<div class="col-md-8">
 				<h1>Sistema de Correccion de Escrituras</h1>
-				<em><?php echo "Registro Actual: ". $valor1[0];?></em>
+				
 			</div>
 			<div class="col-md-4">
 				<br>
@@ -99,27 +101,25 @@
 				<p>Numero de Protocolo <?php echo $datosproyecto[3]; ?></p>
 			</div>
 		</div>
+		
 	</div>
 
 	<br>
 
 	<div class="container-fluid bg-info">
 		<div class="row">
-			<form action="" method="get">
-				<select name="codescritura" id="codescritura">
-					<?php 
-					for($i=0;$i<=count($lista)-1;$i++)
-					{
-						//echo $lista[$i]."<br>";
-					?>
-					<option value="<?php echo $lista[$i];?>"><?php echo $lista[$i];?></option>
-					<?php 
-					}
-					?>
-				</select>
-					<button>Revisar</button>
+			
+			
+			<div class="col-md-1">
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+					<input name="mas" type="submit" value="Siguiente>>">
+					<?php echo $cont ?>
+					<input name="menos" type="submit" value="Anterior<<">
+					<input type="hidden" name="contador" value="<?php echo $cont ?>"> 
 				</form>
-			<div class="col-md-4">
+			</div>
+
+			<div class="col-md-3">
 
 				<em>Sistema de Revision de Protocolos</em>
 				
@@ -128,7 +128,7 @@
 					<table>
 						<tr>
 							<td>Folio:</td>
-							<td><input type="text" name="numeroFolio" value="<?php echo $detalleEscrituras[10]; ?>" class="form-control" /></td>
+							<td><input type="text" name="numeroFolio" value="<?php echo $detalleEscrituras[7]; ?>" class="form-control" /></td>
 						</tr>
 						<tr>
 							<td>Escritura:</td>
@@ -163,7 +163,7 @@
 							if($filao['cod_inv'] != 0)
 							{
 								$nombre = $escritura->VerNombre($filao['cod_inv']);
-								echo $nombre['nombre'];
+								echo "(".$filao['cod_inv'].") ".$nombre['nombre'];
 						?>
 
 
@@ -194,7 +194,7 @@
 								  if($filaf['cod_inv'] != 0)
 					              {
 								  	$nombre = $escritura->VerNombre($filaf['cod_inv']);
-									echo $nombre['nombre'];
+									echo "(".$filaf['cod_inv'].") ".$nombre['nombre'];
 									
 
 					          ?>
@@ -225,7 +225,7 @@
 				                if($filaoj['cod_inv_ju'] != 0)
 				                {
 									$nombreJuridico = $escritura->VerNombreJuridico($filaoj['cod_inv_ju']);
-									echo $nombreJuridico['razon_social'];
+									echo "(".$filaoj['cod_inv_ju'].") ".$nombreJuridico['razon_social'];
 				                
 				            ?>
 				            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('../controller/modificarNombresJuridicos.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');" >Corregir Nombre</button>
@@ -253,7 +253,7 @@
 				                if($filaf['cod_inv_ju'] != 0)
 				                {
 									$nombreJuridico = $escritura->VerNombreJuridico($filaf['cod_inv_ju']);
-									echo $nombreJuridico['razon_social'];
+									echo "(".$filaf['cod_inv_ju'].") ".$nombreJuridico['razon_social'];
 				                
 				            ?>
 				            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('../controller/modificarNombresJuridicos.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');" >Corregir Nombre</button>

@@ -1,0 +1,261 @@
+@media all and (max-width: 600px){
+	div{
+		display: block !important;	/* Cuando el ancho sea inferior a 600px el elemento será un bloque */
+		width: 100% !important;
+		max-width: 100% !important;
+		margin: auto !important;
+		position: relative !important;
+		float: none !important;
+	}
+
+	table{
+		width: 100%;
+	}
+
+	table #l{
+		width: 25%;
+	}
+
+	table #R{
+		width: 10%;
+
+	}
+	table #C{
+		width: 70%;
+
+	}
+
+	.left input{
+		width: auto;
+	}
+
+	.cabecera b{
+		font-size: 1.2em;
+	}
+	.cuerpo td,p{
+		font-size: 1em;
+	}
+
+	.left{
+
+		width: auto;
+		height: auto;
+	}
+
+
+}
+
+.general .superior table{
+
+	color: white;
+
+}
+
+.superior{
+	color: #fef4e9;
+	background: #2c539e; /* Old browsers */
+    background: -moz-linear-gradient(top,  #2c539e 0%, #0f1738 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2c539e), color-stop(100%,#0f1738)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #2c539e 0%,#0f1738 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #2c539e 0%,#0f1738 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #2c539e 0%,#0f1738 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #2c539e 0%,#0f1738 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c539e', endColorstr='#0f1738',GradientType=0 ); /* IE6-9 */
+
+
+
+  /*background: url(../img/ui-bg_gloss-wave_35_f6a828_500x100.png);*/
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 40px;
+	color:white;
+}
+.cuerpo{	/* Este es el delimitador para que la página no sea excesivamente grande */
+	max-width: 1200px;
+	margin:auto;
+	height: 100%;
+	font-size: 1em;
+	background: #EEEEEE url(light.png);
+	padding: 20px;
+}
+.cabecera{
+
+	margin-top: 10px;
+	height: 70px;
+	text-align: center;
+	font-size: 2em;
+	text-transform: uppercase;
+
+}
+
+
+.left{
+
+	float: left;	/* flotamos el elemento a la izquierda */
+	width: 30%;
+	height: auto;
+	border:solid silver 2px;
+	border-radius:10px;
+	padding: 10px;
+
+
+
+}
+.right{
+
+	width: 64%;
+	margin-left: 34%;
+	height: auto;
+	border:solid silver 2px;
+	border-radius:10px;
+	padding:10px;
+
+}
+
+.center{
+
+
+	height: auto;
+	text-align: justify;
+	font-size: 1em;
+	padding: 1px 10px 10px 10px;
+	margin-top: 10px;
+	border:solid silver 2px;
+	border-radius:10px;
+	width: 98%;
+	float:left;
+}
+
+.left2{
+
+	float: left;	/* flotamos el elemento a la izquierda */
+	width: 58%;
+	height: 200px;
+	border:solid silver 2px;
+	border-radius:10px;
+	border-radius:10px;
+	padding: 10px;
+
+	margin-top: 10px;
+
+}
+.right2{
+    
+	width: 36%;
+	margin-left: 62%;
+	height: 200px;
+	border:solid silver 2px;
+	border-radius:10px;
+	padding: 10px;
+	margin-top: 220px;
+}
+
+textarea{
+
+	width: 90%;
+	height: 65%;
+	margin-left: 2%;
+	
+}
+
+.cabecera .left input{
+	width: 50%;
+}
+
+#id{
+	width: 25%;
+}
+
+.Name{
+	width: 70%;
+}
+
+.center, .left, .right, .left2, .right2{
+/*background: rgba(176, 196, 222, 0.4); /* 50% transparent */
+
+  background: #ccc; /* Show a solid color for older browsers */
+  background: -moz-linear-gradient(#fff, #ccc);
+  background: -o-linear-gradient(#fff, #ccc);
+  background: -webkit-linear-gradient(#fff, #ccc);
+
+}
+@font-face {
+    font-family: 'Conv_RobotoCondensed-Regular';
+    src: url('../fonts/RobotoCondensed-Regular.eot');
+    src: local('?'), url('../fonts/RobotoCondensed-Regular.woff') format('woff'), url('../fonts/RobotoCondensed-Regular.ttf') format('truetype'), url('../fonts/RobotoCondensed-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    /*background-color: #0D0D0D;*/
+    font-size: 16px;
+    font-family:'Conv_RobotoCondensed-Regular',Sans-Serif;
+}
+
+
+.general{
+        /*background-image: url(subcabecera_r2.gif);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgba(26, 198, 90, 1);
+        /*background-image: url(small_steps.png);*/
+        /*background: #EEEEEE url(light.png);*/
+}
+
+.part1{
+
+	height: auto;
+	width: 100%;
+}
+
+.part2{
+	height: auto;
+	margin-top: 10px;
+	width: 100%;
+        
+
+}
+
+.OBS{
+	height: auto;
+	float: left;
+	width: 100%;
+}
+
+.boton{
+
+	width: 100%;
+	float: left;
+	margin-top: 20px;
+
+}
+
+table tr td{
+	vertical-align: middle;
+}
+
+.foot1{
+	background-color:  	#999999;
+	color:white;
+	bottom: 0px;
+	float:left;
+	left: 0px;
+	margin-top: 20px;
+	padding-top: 5px;
+	width: 50%;
+	height: 100px;
+}
+.foot2{
+
+	bottom: 0px;
+	background-color:  	#999999;
+	color:white;
+	float:left;
+	left: 0px;
+	margin-top: 20px;
+	padding-top: 5px;
+	width: 50%;
+}
