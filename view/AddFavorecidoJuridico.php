@@ -2,6 +2,7 @@
 require '../model/AddPersonaClass.php';
 $obj = new AddPersonaClass();
 $razonSocial = "oro 33";
+
 $result = $obj->BuscarJuridico($razonSocial);
 
 $codEscritura = $_REQUEST['cod_sct'];
@@ -21,7 +22,7 @@ if(isset($_REQUEST['btnBuscar']))
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,9 +39,8 @@ if(isset($_REQUEST['btnBuscar']))
                 }
             }
         </script>
-        <link rel="stylesheet" href="css/styleform.css">
-		<link rel="stylesheet" href="css/styletable.css">
-		<link rel="stylesheet" type="text/css" href="style.css">
+        
+		<link rel="stylesheet" type="text/css" href="./css/formulario.css">
 </head>
 <body>
 	<form action="" method="get">
@@ -60,12 +60,10 @@ if(isset($_REQUEST['btnBuscar']))
 
     <form action="AddPersonaJuridicaF.php" method="post" name="frmGuardar" id="frmGuardar">
 	<div class="CSSTableGenerator" >
-			<table border="1" width="600">
-		            
-		            
+			<table class="imagetable" width="600">
 				<tr>
-					<td>Nombre</td>
-					<td>Opciones</td>
+					<th>Nombre</th>
+					<th width="80">Opciones</th>
 				</tr>
 		                                <?php
 		                                while($fila = $result->fetch_assoc())

@@ -29,3 +29,6 @@ $cod_inv = $involucrado['Cod_inv'];
 //echo " Codigo del Involucrado ".$cod_inv;
 
 $ver->AgregarFavorecido($cod_sct, $cod_inv, $cod_per);
+
+echo "<script type='text/javascript'> alert('Info'); </script>";
+echo "<script type='text/javascript'> window.close(); </script>";

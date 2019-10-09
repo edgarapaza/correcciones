@@ -17,7 +17,7 @@ $datos = $valores->fetch_array(MYSQLI_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Modificar Nombres</title>
-  <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="./css/formulario.css">
 </head>
 <body>
 
@@ -40,7 +40,7 @@ $datos = $valores->fetch_array(MYSQLI_ASSOC);
                     <td><input name="materno" type="text" id="materno" value="<?php echo $datos['Mat_inv'];?>" class="form-control"/></td>
                   </tr>
                   <tr>
-                    <td><button class="btn btn-primary" type="submit" name="btnGuardar" value="Guardar Cambios" >Guardar Cambios</button></td>
+                    <td><button class="button" type="submit" name="btnGuardar" value="Guardar Cambios" >Guardar Cambios</button></td>
                   </tr>
               </table>
           </div>

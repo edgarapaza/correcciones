@@ -1,7 +1,7 @@
 <?php
 require '../model/AddPersonaClass.php';
-$codEscritura = $_REQUEST['cod_sct'];
-$codPersonal = $_REQUEST['cod_per'];
+$codEscritura = $_REQUEST['codigoEscritura'];
+$codPersonal = $_REQUEST['codigoPersonal'];
 
 $nom_corregido = "TERESA";
 $paterno = "QUISPE";
@@ -43,35 +43,48 @@ if(isset($_REQUEST['btnBuscar']))
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Agregar Otorgante</title>
+	<title>Agregar Favorecido</title>
+	<link rel="stylesheet" type="text/css" href="./css/formulario.css"/>
 </head>
 <body>
 	<form>
-        <input type="hidden" name="cod_sct" value="<?php echo $codEscritura; ?>" />
-        <input type="hidden" name="cod_per" value="<?php echo $codPersonal; ?>" />
-		
+        <input type="hidden" name="codigoEscritura" value="<?php echo $codEscritura; ?>" />
+        <input type="hidden" name="codigoPersonal" value="<?php echo $codPersonal; ?>" />
 		<div class="formulario">
-				<ul>
-					<li><h2>Agregar Favorecido</h2>
-						<span class="required">Datos requeridos</span>					</li>
-					<li> <label for="name">Nombres:</label> <input type="text" name="nombre" placeholder="Escriba el Nombre" required="required"> </li>
-					<li> <label for="name">Paterno:</label> <input type="text" name="paterno" placeholder="Escriba Apellido Paterno" required="required"></li>
-					<li> <label for="name">Materno:</label> <input type="text" name="materno" placeholder="Escriba Apellido Materno" > </li>
-					<li> <button class="submit" type="submit" name="btnBuscar" value="Buscar">Buscar Favorecido</button>
-				</ul>
-			</div>
+            <h2>Agregar Favorecido</h2>
+            <table class="table">
+                <tr>
+                    <td>Nombres</td>
+                    <td><input type="text" name="nombre" placeholder="Escriba el Nombre"
+                        required="required"></td>
+                </tr>
+                <tr>
+                    <td>Paterno</td>
+                    <td><input type="text" name="paterno"
+                        placeholder="Escriba Apellido Paterno" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Materno</td>
+                    <td><input type="text" name="materno"
+                        placeholder="Escriba Apellido Materno" require="required"></td>
+                </tr>
+                <tr>
+                    <td><button class="button" type="button" name="btnCancelar" >Cancelar</button></td>
+                    <td><button class="button" type="submit" name="btnBuscar" >Buscar Persona</button></td>
+                </tr>
+            </table>
+        </div>
+	
 	</form>
 
     <form action="AddPersonaF.php" method="post" name="frmGuardar" id="frmGuardar">
 	<div class="CSSTableGenerator" >
-		<table border="1" width="600">
-	            
-	            
+		<table width="600" class="imagetable">
 			<tr>
-				<td>Nombre</td>
-				<td>Apellido Paterno</td>
-				<td>Apellido Materno</td>
-				<td>Opciones</td>
+				<th>Nombre</th>
+				<th>Apellido Paterno</th>
+				<th>Apellido Materno</th>
+				<th width="80">Opciones</th>
 			</tr>
 				<?php while($fila = $data->fetch_array(MYSQLI_ASSOC))
 	            	    {
@@ -84,24 +97,25 @@ if(isset($_REQUEST['btnBuscar']))
 	                            <input type="hidden" name="involucrado" value="<?php echo $fila['Cod_inv']; ?>" />
 	                            <input type="hidden" name="cod_sct" value="<?php echo $codEscritura; ?>" />
 	                            <input type="hidden" name="cod_per" value="<?php echo $codPersonal; ?>" />
-	                            <a href="AddPersonaF.php?cod_sct=<?php echo $codEscritura; ?>&involucrado=<?php echo $fila['Cod_inv']; ?>&cod_per=<?php echo $codPersonal; ?>" onclick="Confirmar()">Agregar >></a>
+	                            <a href="AddPersonaF.php?codigoEscritura=<?php echo $codEscritura; ?>&codigoInvolucrado=<?php echo $fila['Cod_inv']; ?>&codigoPersonal=<?php echo $codPersonal; ?>" onclick="Confirmar()">Agregar >></a>
 	                            
 	                        </td>
 	                        
 			</tr>
-	                                 <?php
-	                                }
-	                                if($data->num_rows == 0)  
-	                                {
-	                                    echo "El nombre NOOOOOO existe.";
-	                                ?>
-                        <p>El nombre no existe. Desea Agregarlo a la Base de Datos.</p> <a href="NewPerson_f.php?nombre=<?php echo $nombre; ?>&paterno=<?php echo $paterno; ?>&materno=<?php echo $materno; ?>&cod_sct=<?php echo $codEscritura; ?>&cod_per=<?php echo $codPersonal; ?>"> PRESIONE AQUI </a>
 	                                <?php
-	                                
 	                                }
-	                                ?>
+									
+									if($data->num_rows == 0)  
+	                                {
+									?>
+									<div class="alert">
+										<h4>El nombre no existe.  Desea agregarlo a la Base de Datos?</h4>
+										<a href="NewPerson_f.php?nombre=<?php echo $nombre; ?>&paterno=<?php echo $paterno; ?>&materno=<?php echo $materno; ?>&cod_sct=<?php echo $codEscritura; ?>&cod_per=<?php echo $codPersonal; ?>"> PRESIONE AQUI </a>
+									</div>
+	                                <?php } ?>
 		</table>
 	</div>
-    </form>
+	</form>
+	
 </body>
 </html>

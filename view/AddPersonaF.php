@@ -1,19 +1,16 @@
 <?php
-$escritura = $_REQUEST['cod_sct'];
-$involucrado = $_REQUEST['involucrado'];
-$personal = $_REQUEST['cod_per'];
+require '../model/AddPersonaClass.php';
+
+$escritura = $_REQUEST['codigoEscritura'];
+$involucrado = $_REQUEST['codigoInvolucrado'];
+$personal = $_REQUEST['codigoPersonal'];
 
 //echo "Escritura:".$escritura;
 //echo "Involucrado:".$involucrado;
 //echo "Personal:".$personal;
-echo "Nombre Agregado. CIERRE LA VENTANA";
 
-AddFavorecido( $escritura, $involucrado, $personal);
-        
-function AddFavorecido($cod_sct, $cod_inv, $cod_per) {
-    
-    require '../model/AddPersonaClass.php';
-    $add = new AddPersonaClass();
-    $add->AgregarFavorecido($cod_sct, $cod_inv, $cod_per);
-}
+$add = new AddPersonaClass();
+$add->AgregarFavorecido($escritura, $involucrado, $personal);
 
+echo "<script type='text/javascript'> alert('Nombre Agregado'); </script>";
+echo "<script type='text/javascript'> window.close(); </script>";

@@ -23,26 +23,36 @@ class AddPersonaClass
     public function AgregarFavorecido($cod_sct, $cod_inv, $cod_per) {
         
         $sql = "INSERT INTO escrifavor1 (cod_sct, cod_inv, cod_per,cod_inv_ju) VALUES ($cod_sct, $cod_inv, $cod_per,0);";
-        $result = $this->conn->query($sql);
-        
-        return $result;
+        if(!$result = $this->conn->query($sql)){
+            echo "Error Registrando Favorecido";
+        }
     }
     
     public function AgregarOtorganteJuridico($cod_sct,$cod_per,$cod_inv_ju) {
         
         $sql = "INSERT INTO dbarp.escriotor1 (cod_sct,cod_inv,cod_per,cod_inv_ju) VALUES ($cod_sct,0,$cod_per,$cod_inv_ju);";
-        $result = $this->conn->query($sql);
+        if(!$result = $this->conn->query($sql)){
+            echo "Error Agregando Otorgante Juridico";
+        }
         
-        return $result;
     }
     
     public function AgregarFavorecidoJuridico($cod_sct,$cod_per,$cod_inv_ju) {
         
         $sql = "INSERT INTO dbarp.escrifavor1 (cod_sct,cod_inv,cod_per,cod_inv_ju) VALUES ($cod_sct,0,$cod_per,$cod_inv_ju);";
-        $result = $this->conn->query($sql);
+        if(!$result = $this->conn->query($sql)){
+            echo "Error Agregando Favorecido Juridico";
+        }
         
-        return $result;
     }
+
+    public function ModificarJuridico($cod_inv, $razon)
+	{
+		$sql = "UPDATE involjuridicas1 SET Raz_inv = '$razon' WHERE Cod_inv = $cod_inv LIMIT 1;";
+		if(!$result = $this->conn->query($sql)){
+			echo "Error Modificando el Datos Juridico";
+		}
+	}
     
     public function BuscarNombre($nombre, $paterno) {
         
@@ -85,7 +95,9 @@ class AddPersonaClass
     
     public function NuevaPersona($Pat_inv, $Mat_inv, $Nom_inv){
         $sql = "INSERT INTO dbarp.involucrados1 (Pat_inv,Mat_inv,Nom_inv) VALUES ('$Pat_inv', '$Mat_inv', '$Nom_inv')";
-        $this->conn->query($sql);   
+        if(!$this->conn->query($sql)){
+            echo "Error Agregando Nueva Persona a Base de Datos";
+        }
     }
 
 }
