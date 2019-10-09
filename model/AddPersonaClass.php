@@ -14,9 +14,10 @@ class AddPersonaClass
     public function AgregarOtorgante($cod_sct, $cod_inv, $cod_per) {
         
         $sql = "INSERT INTO escriotor1 (cod_sct, cod_inv, cod_per,cod_inv_ju) VALUES ($cod_sct, $cod_inv, $cod_per,0);";
-        $result = $this->conn->query($sql);
+        if(!$result = $this->conn->query($sql)){
+            echo "Error Agregando Otorgante";
+        }
         
-        return $result;
     }
     
     public function AgregarFavorecido($cod_sct, $cod_inv, $cod_per) {

@@ -1,6 +1,9 @@
 <?php //MODO DE VISTA DEL PROTOCOLOS CREADOS CON PROYECTO
-	session_start();
-	
+session_start();
+    
+    $codigoPersonal = $_SESSION['administrator'];
+    echo "CODIGO DE PERSONAL: ".$codigoPersonal;
+
 	include "../model/EscrituraClassProyecto.php";
 
 	// Recoge el numero de protocolo de la session
@@ -86,7 +89,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
     <title>Correccion de Escrituras</title>
 </head>
 
@@ -151,6 +154,8 @@
                         </tr>
                         
                     </table>
+                    <input type="text" name="codigoPersonal" value="<?php echo $codigoPersonal;?>" />
+                    <input type="text" name="codigoEscritura" value="<?php echo $lista[$cont];?>" />
                 </form>
             </div>
             <div class="col-md-7">
@@ -172,10 +177,10 @@
 
 
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/modificarNombres.php?cod_usu=<?php echo $filao['cod_inv'];?>','','width=800, height=500, scrollbars=YES');">Corregir
+                                onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filao['cod_inv'];?>','','width=800, height=500, scrollbars=YES');">Corregir
                                 Nombre</button>
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/elimnarNombre.php?cod_usu=<?php echo $filao['cod_inv'];?>&cod_sct=<?php echo $fila['cod_sct'];?>','','width=500, height=200, scrollbars=NO');">X</button>
+                                onclick="javascript:window.open('../controller/eliminarNombre.php?codigoInvolucrado=<?php echo $filao['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');">X</button>
 
                             <?php
 							echo "<br>";
@@ -186,7 +191,7 @@
                         </td>
                         <td>
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('AddOtorgante.php?cod_sct=<?php echo $fila['cod_sct'];?>&cod_per=<?php echo $fila['cod_usu'];?>','','width=800, height=500, scrollbars=YES');">Agregar
+                                onclick="javascript:window.open('AddOtorgante.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');">Agregar
                                 Otorgante</button>
                         </td>
                     </tr>
@@ -208,10 +213,10 @@
 
 					          ?>
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/modificarNombres.php?cod_usu=<?php echo $filaf['cod_inv'];?>','','width=800, height=500, scrollbars=YES');">Corregir
+                                onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filaf['cod_inv'];?>','','width=800, height=500, scrollbars=YES');">Corregir
                                 Nombre</button>
                             <button name="boton2" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/elimnarNombreF.php?cod_inv=<?php echo $filaf['cod_inv'];?>&cod_sct=<?php echo $fila['cod_sct'];?>','','width=500, height=200, scrollbars=NO');">X</button>
+                                onclick="javascript:window.open('../controller/eliminarNombreF.php?codigoInvolucrado=<?php echo $filaf['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');">X</button>
                             <?php
 					            echo "<br>";
 					              }
@@ -243,10 +248,10 @@
 				                
 				            ?>
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/modificarNombresJuridicos.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir
+                                onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir
                                 Nombre</button>
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/elimnarJuridicoO.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>&cod_sct=<?php echo $fila['cod_sct'];?>','','width=500, height=200, scrollbars=NO');">
+                                onclick="javascript:window.open('../controller/eliminarJuridicoO.php?codigoInvolucradoJuridico=<?php echo $filaoj['cod_inv_ju'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');">
                                 X </button>
                             <?php
 				                echo "<br>";
@@ -277,10 +282,10 @@
 				                
 				            ?>
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/modificarNombresJuridicos.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir
+                                onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir
                                 Nombre</button>
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/elimnarJuridicoF.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>&cod_sct=<?php echo $fila['cod_sct'];?>','','width=600, height=600, scrollbars=NO');">
+                                onclick="javascript:window.open('../controller/eliminarJuridicoF.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>&cod_sct=<?php echo $fila['cod_sct'];?>','','width=600, height=600, scrollbars=NO');">
                                 X </button>
                             <?php
 				                echo "<br>";

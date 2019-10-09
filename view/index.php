@@ -16,7 +16,7 @@
                 <em>IMPORTANTE: Protocolos de Proyectos a partir del PROTOCOLO 2612 EN ADELANTE</em>
                 <h3>Ingrese el Numero de Protocolo a Revisar</h3>
 
-                <form action="controller/protocolos.php" method="post">
+                <form action="../controller/protocolos.php" method="post">
                     <div class="formulario">
                         <label for="name">Numero de Protocolo:</label>
                         <input type="text" name="protocolo" class="form-control" placeholder="Numero de Protocolo">
@@ -25,7 +25,7 @@
                 </form>
             </div>
             <div class="col-md-4">
-                <p>aaaaaaaaaaaaa</p>
+                <p></p>
             </div>
         </div>
     </div>
