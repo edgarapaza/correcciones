@@ -14,8 +14,9 @@ class UsuariosClass
 	{
 		$sql = "UPDATE involucrados1 SET Pat_inv = '$paterno', Mat_inv = '$materno', Nom_inv = '$nombre' WHERE Cod_inv = $codigo LIMIT 1;";
 
-		$result = $this->conn->query($sql);
-		return true;
+		if(!$result = $this->conn->query($sql)){
+			echo "Error Modificando el nombre Juridico";
+		}
 	}
 
 	public function AgregarOtorgante($cod_sct)

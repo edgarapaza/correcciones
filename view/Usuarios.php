@@ -9,5 +9,6 @@ $materno =strtoupper($_REQUEST['materno']);
 $edgar = new UsuariosClass();
 $edgar->ModificarNombre($codigo,$nombres,$paterno,$materno);
 
+echo "<script type='text/javascript'> alert('Nombre Agregado'); </script>";
 echo "<script type='text/javascript'> window.close(); </script>";
-?>
+

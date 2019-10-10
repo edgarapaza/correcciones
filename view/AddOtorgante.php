@@ -58,9 +58,9 @@ if(isset($_REQUEST['btnBuscar']))
 
         <div class="formulario">
             <h2>Agregar Otorgante</h2>
-            <table class="table">
+            <table>
                 <tr>
-                    <td>Nombres</td>
+                    <td width="70">Nombres</td>
                     <td><input type="text" name="nombre" placeholder="Escriba el Nombre" required="required"></td>
                 </tr>
                 <tr>
@@ -74,7 +74,7 @@ if(isset($_REQUEST['btnBuscar']))
                     </td>
                 </tr>
                 <tr>
-                    <td><button class="button" type="button" name="btnCancelar">Cancelar</button></td>
+                    <td></td>
                     <td><button class="button" type="submit" name="btnBuscar">Buscar Otorgante</button></td>
                 </tr>
             </table>

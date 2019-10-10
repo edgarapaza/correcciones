@@ -81,7 +81,7 @@ include_once "../model/EscrituraClass.php";
 </head>
 
 <body>
-    <div class="container-fluid bg-success">
+    <div class="container-fluid bg-danger">
         
         <div class="row">
             <nav class="navbar navbar-default">
@@ -132,14 +132,12 @@ include_once "../model/EscrituraClass.php";
         
         <div class="row">
             <div class="col-md-8">
-                <h1>Sistema de Correccion de Escrituras</h1>
+                
                 <em><?php echo "Registro Actual: ". $valor1[0];?></em>
             </div>
             <div class="col-md-4">
-                <br>
-                <a href="../index.php" class="btn btn-danger">Nuevo Protocolo</a>
-                <p>Numero de Datos:<?php echo $numeroArray; ?></p>
-                <p>Numero de Protocolo <?php echo $numeroProtocolo; ?></p>
+                <p >Numero de Datos:<span class="header-text"><?php echo $numeroArray; ?></span> | Numero de Protocolo: <span class="header-text"><?php echo $numeroProtocolo; ?></span></p>
+                
             </div>
         </div>
     </div>
@@ -200,7 +198,7 @@ include_once "../model/EscrituraClass.php";
             <div class="col-md-8">
                 <table class="table">
                     <tr>
-                        <td>Otorgantes</td>
+                        <td width="180">Otorgantes</td>
                         <td>
                             <?php
 						//echo "Otorgantes -----------------------------------------------------<br>";
@@ -224,9 +222,6 @@ include_once "../model/EscrituraClass.php";
 						}
 
 					    ?>
-                        </td>
-                        <td>
-                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('AddOtorgante.php?cod_sct=<?php echo $fila['cod_sct'];?>&cod_per=<?php echo $fila['cod_usu'];?>','','width=800, height=500, scrollbars=YES');">Agregar Otorgante</button>
                         </td>
                     </tr>
 
@@ -258,9 +253,6 @@ include_once "../model/EscrituraClass.php";
 					        ?>
                         </td>
 
-                        <td>
-                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('AddFavorecido.php?cod_sct=<?php echo $fila['cod_sct'];?>&cod_per=<?php echo $fila['cod_usu'];?>','','width=800, height=500, scrollbars=YES');">Agregar Favorecido</button>
-                        </td>
                     </tr>
 
                     <tr>
@@ -287,11 +279,7 @@ include_once "../model/EscrituraClass.php";
 				            }
 				          ?>
                         </td>
-                        <td>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('AddOtorganteJuridico.php?cod_sct=<?php echo $fila['cod_sct'];?>&cod_per=<?php echo $fila['cod_usu'];?>','','width=800, height=500, scrollbars=NO');">Add
-                                Otorgante Juridico</button>
-                        </td>
+                        
                     </tr>
 
                     <tr>
@@ -319,11 +307,7 @@ include_once "../model/EscrituraClass.php";
 				            }
 				          ?>
                         </td>
-                        <td>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $fila['cod_sct'];?>&cod_per=<?php echo $fila['cod_usu'];?>','','width=800, height=500, scrollbars=NO');">Add
-                                Favorecido Juridico</button>
-                        </td>
+                        
                     </tr>
                 </table>
             </div>

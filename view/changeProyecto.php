@@ -200,11 +200,10 @@ session_start();
         </div>
 
         <div class="row">
-            <div class="col-md-8">
-                <a href="./index.php" class="btn btn-danger">Nuevo Protocolo</a>
+            <div class="col-md-6">
                 <span class="etiquetas"><?php echo $lista[$cont];?></span>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <p>Numero de Escrituras: <span class="header-text"><?php echo $numeroArray; ?></span>  | Numero de Protocolo: <span class="header-text"><?php echo $datosproyecto[3]; ?></span></p>
             </div>
         </div>
@@ -452,7 +451,7 @@ session_start();
                     </tr>
                     <tr>
                         <td>Numero de Proyecto:</td>
-                        <td><?php echo $datosproyecto[1];?></td>
+                        <td><?php echo $datosproyecto[0];?></td>
                     </tr>
                     <tr>
                         <td>Observaciones:</td>
