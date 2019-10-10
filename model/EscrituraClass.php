@@ -20,7 +20,7 @@ class EscrituraClass
         }
 
         function Escrituras($numeroEscritura) {
-            $sql = "SELECT cod_sct,cod_not,num_sct,cod_dst,fec_doc,cod_sub,nom_bie,can_fol,cod_pro,obs_sct,num_fol,cod_usu,hra_ing FROM escrituras1 WHERE cod_sct = $numeroEscritura";
+            $sql = "SELECT cod_sct,cod_not,num_sct,cod_dst,fec_doc,cod_sub,nom_bie,can_fol,cod_pro,obs_sct,num_fol,cod_usu,hra_ing FROM escrituras1 WHERE cod_sct = $numeroEscritura;";
             $rpta = $this->conn->query($sql);
             $data = $rpta->fetch_array();
             return $data;

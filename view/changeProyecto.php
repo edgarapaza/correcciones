@@ -146,18 +146,66 @@ session_start();
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="./css/corecciones.css">
     <title>Correccion de Escrituras</title>
+    
+    <!-- Latest compiled and minified JavaScript -->
 </head>
 
 <body>
     <div class="container-fluid bg-danger">
         <div class="row">
+            <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Sistema de Correccion de Escrituras</a>
+                </div>
+                
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                
+                
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="glyphicon glyphicon-th-list"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.php">Nuevo Protocolo</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="#" onclick="javascript:window.open('AddOtorgante.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');">Agregar Otorgante</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="javascript:window.open('AddFavorecido.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');"> Agregar Favorecido</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="javascript:window.open('AddOtorganteJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');"> Agregar Otorgante Juridico</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');">Agregar Favorecido Juridico</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="../controller/sesionClose.php">Salir</a></li>
+                    </ul>
+                    </li>
+                </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+
+        <div class="row">
             <div class="col-md-8">
-                <h2>Sistema de Correccion de Escrituras</h2>
+                <a href="./index.php" class="btn btn-danger">Nuevo Protocolo</a>
+                <span class="etiquetas"><?php echo $lista[$cont];?></span>
             </div>
             <div class="col-md-4">
                 <p>Numero de Escrituras: <span class="header-text"><?php echo $numeroArray; ?></span>  | Numero de Protocolo: <span class="header-text"><?php echo $datosproyecto[3]; ?></span></p>
-                <a href="../index.php" class="btn btn-danger">Nuevo Protocolo</a>
-                <span class="etiquetas"><?php echo $lista[$cont];?></span>
             </div>
         </div>
 
@@ -221,9 +269,8 @@ session_start();
             <div class="col-md-8">
                 <table>
                     <tr>
-                        <th width="70%"></th>
-                        <th width="20%">Opc</th>
-                        <th width="10%">Agregar</th>
+                        <th width="90%">Datos de la Escritura</th>
+                        <th width="10%">Opc</th>
                     </tr>
 
                     <?php
@@ -238,7 +285,7 @@ session_start();
 								
                     ?>
 
-                    <tr>
+                    <tr class="bg-danger">
                         <td>
                             <span class="etiquetas">Otorgantes <br> </span>
                             <?php echo $nombre['nombre'];?>
@@ -247,15 +294,13 @@ session_start();
                             <button name="boton1" class="btn btn-primary" type="button" onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filao['cod_inv'];?>','','width=800, height=500, scrollbars=YES');"> <span class="glyphicon glyphicon-edit"></span> </button>
                             <button name="boton1" class="btn btn-danger" type="button" onclick="javascript:window.open('../controller/eliminarNombre.php?codigoInvolucrado=<?php echo $filao['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');"> <span class="glyphicon glyphicon-trash"></span> </button>
                         </td>
-                        <?php
+                        
+                    </tr>
+                    <?php
 							echo "<br>";
 							}
 						}
                         ?>
-                        <td>
-                            <button name="boton1" class="btn btn-info" type="button" onclick="javascript:window.open('AddOtorgante.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');"> <span class="glyphicon glyphicon-user"></span> Otorgante</button>
-                        </td>
-                    </tr>
                     
                     <?php
 
@@ -268,7 +313,7 @@ session_start();
 								  	$nombre = $escritura->VerNombre($filaf['cod_inv']);
                     ?>
 
-                    <tr>
+                    <tr class="bg-success">
                         <td>
                             <span class="etiquetas">Favorecido</span> <br>
                             <?php echo $nombre['nombre'];?>
@@ -276,22 +321,16 @@ session_start();
                         <td>
                             <button name="boton1" class="btn btn-primary" type="button" onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filaf['cod_inv'];?>','','width=800, height=500, scrollbars=YES');"><span class="glyphicon glyphicon-edit"></span></button>
                             <button name="boton2" class="btn btn-danger" type="button" onclick="javascript:window.open('../controller/eliminarNombreF.php?codigoInvolucrado=<?php echo $filaf['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');"><span class="glyphicon glyphicon-trash"></span></button>
-                            <?php
+                            
+                        </td>
+                    </tr>
+                    <?php
 					            echo "<br>";
 					              }
 					          }
-					        ?>
-                        </td>
-
-                        <td>
-                            <button name="boton1" class="btn btn-info" type="button" onclick="javascript:window.open('AddFavorecido.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');"> <span class="glyphicon glyphicon-user"></span> Favorecido</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Otorgantes Juridicos</td>
-                        <td>
-                            <?php
+                    ?>
+                        
+                        <?php
 				            //echo "Otorgantes Juridicos---------------------------------------------------";
 				          	$dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
 
@@ -300,26 +339,28 @@ session_start();
 				                if($filaoj['cod_inv_ju'] != 0)
 				                {
 									$nombreJuridico = $escritura->VerNombreJuridico($filaoj['cod_inv_ju']);
-									echo $nombreJuridico['razon_social'];
+									
 				                
-				            ?>
-                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir Nombre</button>
-                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('../controller/eliminarJuridicoO.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');"> X </button>
-                            <?php
-				                echo "<br>";
-				                }
-				            }
-				          ?>
-                        </td>
-                        <td>
-                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('AddOtorganteJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');"><span class="glyphicon glyphicon-briefcase"></span> Otor. Juridico</button>
-                        </td>
-                    </tr>
+                        ?>
 
                     <tr>
-                        <td>Favorecidos Juridicos</td>
                         <td>
-                            <?php
+                            <span class="etiquetas">Otorgantes Juridicos</span><br>
+                            <?php echo $nombreJuridico['razon_social'];?>
+                        </td>
+
+                        <td>
+                            <button name="boton1" class="btn btn-primary" type="button" onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');"> <span class="glyphicon glyphicon-edit"></span></button>
+                            <button name="boton1" class="btn btn-danger" type="button" onclick="javascript:window.open('../controller/eliminarJuridicoO.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');"> <span class="glyphicon glyphicon-trash"></span> </button>
+                        </td>
+                    
+                    </tr>
+                    <?php
+                            }
+                        }
+                    ?>
+
+                    <?php
 				            //echo "Favorecidos Juridicos-------------------------------------
 				            $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras[0]);
 
@@ -328,23 +369,27 @@ session_start();
 				                if($filaf['cod_inv_ju'] != 0)
 				                {
 									$nombreJuridico = $escritura->VerNombreJuridico($filaf['cod_inv_ju']);
-									echo $nombreJuridico['razon_social'];
+									
 				                
-				            ?>
-                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir Nombre</button>
-                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('../controller/eliminarJuridicoF.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=600, height=600, scrollbars=NO');">
-                                X </button>
-                            <?php
+                    ?>
+                    
+                    <tr>
+                        <td>
+                            <span class="etiquetas"> Favorecidos Juridicos</span><br>
+                            <?php echo $nombreJuridico['razon_social'];?>
+                        </td>
+                        <td>
+                            
+                            <button name="boton1" class="btn btn-primary" type="button" onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');"> <span class="glyphicon glyphicon-edit"></span></button>
+                            <button name="boton1" class="btn btn-danger" type="button" onclick="javascript:window.open('../controller/eliminarJuridicoF.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=600, height=600, scrollbars=NO');"> <span class="glyphicon glyphicon-trash"></span> </button>
+                            
+                        </td>
+                    </tr>
+                    <?php
 				                echo "<br>";
 				                }
 				            }
 				          ?>
-                        </td>
-                        <td>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');"><span class="glyphicon glyphicon-briefcase"></span> Fav. Juridico</button>
-                        </td>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -369,11 +414,9 @@ session_start();
                             <?php 
                                 $subserie = $escritura->VerSubserie($detalleEscrituras[3]);
 								echo $subserie['subserie'];
-							?>
-                            <input name="boton1" size="10" type="button"
-                                onclick="javascript:window.open('CambiarSubserie.php?cod_sct=<?php echo $detalleEscrituras[0];?>','','width=800, height=500, scrollbars=YES');"
-                                value="Cambiar la serie" />
-                        </td>
+                            ?>
+                            <button class="btn btn-primary" type="submit" name="btnSubSerie" id="btnSubSerie" onclick="javascript:window.open('CambiarSubserie.php?cod_sct=<?php echo $detalleEscrituras[0];?>','','width=800, height=500, scrollbars=YES');"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                            
                     </tr>
                     <tr>
                         <td>Notario</td>
@@ -426,6 +469,8 @@ session_start();
         
     </div>
 
+    <script src="./js/jquery.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    
 </body>
-
 </html>
