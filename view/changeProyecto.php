@@ -2,14 +2,16 @@
 session_start();
     
     $codigoPersonal = $_SESSION['administrator'];
-    echo "CODIGO DE PERSONAL: ".$codigoPersonal;
 
 	include "../model/EscrituraClassProyecto.php";
+    include "../model/CambiarDatos.php";
 
-	// Recoge el numero de protocolo de la session
+    $escritura = new EscrituraClassProyecto();
+
+    
+    // Recoge el numero de protocolo de la session
 	$numeroProyecto = $_SESSION['proyecto'];
-	
-	$escritura = new EscrituraClassProyecto();
+		
 
 	$datosproyecto = $escritura->DatosProyecto($numeroProyecto);
 	/* Para leer los datos del proyecto
@@ -77,7 +79,59 @@ session_start();
 	}
 
 	$detalleEscrituras = $escritura->DetalleEscrituras($lista[$cont]);
-	
+    
+    /*  LISTADO DE BOTONES PARA CAMBIOS EN EL SISTEMA   */
+    if(isset($_POST['btnFolio'])){
+        $cambiarDatos = new CambiarDatos();
+
+        $codigoEscritura = $_REQUEST['codigoEscritura'];
+        $numeroFolio = $_REQUEST['numeroFolio'];
+                
+        $cambiarDatos->CambiarFolio($codigoEscritura, $numeroFolio);
+        header("Refresh:0");
+    }
+
+    if(isset($_POST['btnNumeroEscritura'])){
+        $cambiarDatos = new CambiarDatos();
+
+        $codigoEscritura = $_REQUEST['codigoEscritura'];
+        $numeroEscritura = $_REQUEST['numeroEscritura'];
+                
+        $cambiarDatos->CambiarNumeroEscritura($codigoEscritura, $numeroEscritura);
+        header("Refresh:0");
+    }
+
+    if(isset($_POST['btnCantidadFolios'])){
+        $cambiarDatos = new CambiarDatos();
+
+        $codigoEscritura = $_REQUEST['codigoEscritura'];
+        $cantidadFolios = $_REQUEST['cantidadFolios'];
+                
+        $cambiarDatos->CambiarCantidadFolios($codigoEscritura, $cantidadFolios);
+        header("Refresh:0");
+    }
+
+    if(isset($_POST['btnFechaDocumento'])){
+        $cambiarDatos = new CambiarDatos();
+
+        $codigoEscritura = $_REQUEST['codigoEscritura'];
+        $fechaDocumento = $_REQUEST['fechaDocumento'];
+                
+        $cambiarDatos->CambiarFechaDocumento($codigoEscritura, $fechaDocumento);
+        header("Refresh:0");
+    }
+
+    if(isset($_POST['btnNombreBien'])){
+        $cambiarDatos = new CambiarDatos();
+
+        $codigoEscritura = $_REQUEST['codigoEscritura'];
+        $nombreBien = $_REQUEST['nombreBien'];
+                
+        $cambiarDatos->CambiarNombreBien($codigoEscritura, $nombreBien);
+        header("Refresh:0");
+    }
+
+
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -90,6 +144,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./css/corecciones.css">
     <title>Correccion de Escrituras</title>
 </head>
 
@@ -97,45 +152,40 @@ session_start();
     <div class="container-fluid bg-danger">
         <div class="row">
             <div class="col-md-8">
-                <h1>Sistema de Correccion de Escrituras</h1>
-
+                <h2>Sistema de Correccion de Escrituras</h2>
             </div>
             <div class="col-md-4">
-                <br>
+                <p>Numero de Escrituras: <span class="header-text"><?php echo $numeroArray; ?></span>  | Numero de Protocolo: <span class="header-text"><?php echo $datosproyecto[3]; ?></span></p>
                 <a href="../index.php" class="btn btn-danger">Nuevo Protocolo</a>
-                <p>Numero de Datos:<?php echo $numeroArray; ?></p>
-                <p>Numero de Protocolo <?php echo $datosproyecto[3]; ?></p>
+                <span class="etiquetas"><?php echo $lista[$cont];?></span>
             </div>
         </div>
 
     </div>
 
-    <br>
-
     <div class="container-fluid bg-info">
         <div class="row">
             <div class="col-md-1">
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
-                    <input name="mas" type="submit" value="Siguiente>>">
+                    <input name="mas" type="submit" value="Next >>">
                     <?php echo $cont ?>
-                    <input name="menos" type="submit" value="Anterior<<">
+                    <input name="menos" type="submit" value="Ant. <<">
                     <input type="hidden" name="contador" value="<?php echo $cont ?>">
                 </form>
             </div>
 
             <div class="col-md-3">
-
                 <em>Sistema de Revision de Protocolos</em>
-
-
-                <form action="CambiarDatos.php" method="post" class="form-group">
+                <form action="" method="post">
+                    <input type="hidden" name="codigoPersonal" value="<?php echo $codigoPersonal;?>" />
+                    <input type="hidden" name="codigoEscritura" value="<?php echo $lista[$cont];?>" />
                     <table>
                         <tr>
                             <td>Folio:</td>
                             <td><input type="text" name="numeroFolio" value="<?php echo $detalleEscrituras[7]; ?>"
                                     class="form-control" /></td>
                             <td>
-                                <button>x</button>
+                                <button class="btn btn-primary" type="submit" name="btnFolio" id="btnFolio"><span class="glyphicon glyphicon-ok-circle"></span></button>
                             </td>
                         </tr>
                         <tr>
@@ -144,7 +194,7 @@ session_start();
                                     class="form-control" />
                             </td>
                             <td>
-                                <button>x</button>
+                            <button class="btn btn-primary" type="submit" name="btnNumeroEscritura" id="btnNumeroEscritura"><span class="glyphicon glyphicon-ok-circle"></span></button>
                             </td>
                         </tr>
                         <tr>
@@ -153,7 +203,7 @@ session_start();
                                     class="form-control" />
                             </td>
                             <td>
-                                <button>x</button>
+                            <button class="btn btn-primary" type="submit" name="btnCantidadFolios" id="btnCantidadFolios"><span class="glyphicon glyphicon-ok-circle"></span></button>
                             </td>
                         </tr>
                         <tr>
@@ -162,94 +212,79 @@ session_start();
                                     class="form-control" />
                             </td>
                             <td>
-                                <button>x</button>
+                            <button class="btn btn-primary" type="submit" name="btnFechaDocumento" id="btnFechaDocumento"><span class="glyphicon glyphicon-ok-circle"></span></button>
                             </td>
                         </tr>
-                        
                     </table>
-                    <input type="hidden" name="codigoPersonal" value="<?php echo $codigoPersonal;?>" />
-                    <input type="hidden" name="codigoEscritura" value="<?php echo $lista[$cont];?>" />
                 </form>
             </div>
             <div class="col-md-8">
-                <table class="table">
-                    <caption>Otorgantes</caption>
+                <table>
                     <tr>
-                        
-                        <td>
-                            <?php
-						//echo "Otorgantes -----------------------------------------------------<br>";
-						$dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
+                        <th width="70%"></th>
+                        <th width="20%">Opc</th>
+                        <th width="10%">Agregar</th>
+                    </tr>
 
+                    <?php
+						//echo "Otorgantes -----------------------------------------------
+                        $dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
+                        
 						while($filao = $dataOtorgantes->fetch_array(MYSQLI_ASSOC))
 						{
 							if($filao['cod_inv'] != 0)
 							{
 								$nombre = $escritura->VerNombre($filao['cod_inv']);
 								
-						?>
-                            <ul>
-                                <li>
-                                    
-                                    <?php echo $nombre['nombre'];?> <button name="boton1" class="btn btn-success" type="button"
-                                    onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filao['cod_inv'];?>','','width=800, height=500, scrollbars=YES');"> lapiz</button>
-                                    
-                                    <button name="boton1" class="btn btn-success" type="button"
-                                    onclick="javascript:window.open('../controller/eliminarNombre.php?codigoInvolucrado=<?php echo $filao['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');">X</button>
-                                    
-                                </li>
-                            </ul>
+                    ?>
 
-                            
-
-                            <?php
+                    <tr>
+                        <td>
+                            <span class="etiquetas">Otorgantes <br> </span>
+                            <?php echo $nombre['nombre'];?>
+                        </td>
+                        <td>
+                            <button name="boton1" class="btn btn-primary" type="button" onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filao['cod_inv'];?>','','width=800, height=500, scrollbars=YES');"> <span class="glyphicon glyphicon-edit"></span> </button>
+                            <button name="boton1" class="btn btn-danger" type="button" onclick="javascript:window.open('../controller/eliminarNombre.php?codigoInvolucrado=<?php echo $filao['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');"> <span class="glyphicon glyphicon-trash"></span> </button>
+                        </td>
+                        <?php
 							echo "<br>";
 							}
 						}
-
-					       ?>
-                        </td>
-                        <td></td>
+                        ?>
                         <td>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('AddOtorgante.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');">Agregar
-                                Otorgante</button>
+                            <button name="boton1" class="btn btn-info" type="button" onclick="javascript:window.open('AddOtorgante.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');"> <span class="glyphicon glyphicon-user"></span> Otorgante</button>
                         </td>
                     </tr>
+                    
+                    <?php
 
-                    <tr>
-                        <td>Favorecidos</td>
-                        <td>
-                            <?php
+					    $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras[0]);
 
-					          $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras[0]);
-
-					          while($filaf = $dataFavorecidos->fetch_array())
+                          while($filaf = $dataFavorecidos->fetch_array())
 					          {
 								  if($filaf['cod_inv'] != 0)
 					              {
 								  	$nombre = $escritura->VerNombre($filaf['cod_inv']);
-									echo $nombre['nombre'];
-									
+                    ?>
 
-					          ?>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filaf['cod_inv'];?>','','width=800, height=500, scrollbars=YES');">Corregir
-                                Nombre</button>
-                            <button name="boton2" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/eliminarNombreF.php?codigoInvolucrado=<?php echo $filaf['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');">X</button>
+                    <tr>
+                        <td>
+                            <span class="etiquetas">Favorecido</span> <br>
+                            <?php echo $nombre['nombre'];?>
+                        </td>
+                        <td>
+                            <button name="boton1" class="btn btn-primary" type="button" onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filaf['cod_inv'];?>','','width=800, height=500, scrollbars=YES');"><span class="glyphicon glyphicon-edit"></span></button>
+                            <button name="boton2" class="btn btn-danger" type="button" onclick="javascript:window.open('../controller/eliminarNombreF.php?codigoInvolucrado=<?php echo $filaf['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');"><span class="glyphicon glyphicon-trash"></span></button>
                             <?php
 					            echo "<br>";
 					              }
 					          }
-
 					        ?>
                         </td>
 
                         <td>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('AddFavorecido.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');">
-                                Agregar Favorecido</button>
+                            <button name="boton1" class="btn btn-info" type="button" onclick="javascript:window.open('AddFavorecido.php?codigoEscritura=<?php echo $lista[$cont];?>&codigoPersonal=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=YES');"> <span class="glyphicon glyphicon-user"></span> Favorecido</button>
                         </td>
                     </tr>
 
@@ -257,7 +292,7 @@ session_start();
                         <td>Otorgantes Juridicos</td>
                         <td>
                             <?php
-				            //echo "Otorgantes Juridicos-----------------------------------------------------<br>";
+				            //echo "Otorgantes Juridicos---------------------------------------------------";
 				          	$dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
 
 				            while($filaoj = $dataOtorgantes->fetch_array())
@@ -268,12 +303,8 @@ session_start();
 									echo $nombreJuridico['razon_social'];
 				                
 				            ?>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir
-                                Nombre</button>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/eliminarJuridicoO.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');">
-                                X </button>
+                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir Nombre</button>
+                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('../controller/eliminarJuridicoO.php?cod_inv=<?php echo $filaoj['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');"> X </button>
                             <?php
 				                echo "<br>";
 				                }
@@ -281,9 +312,7 @@ session_start();
 				          ?>
                         </td>
                         <td>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('AddOtorganteJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');">Add
-                                Otorgante Juridico</button>
+                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('AddOtorganteJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');"><span class="glyphicon glyphicon-briefcase"></span> Otor. Juridico</button>
                         </td>
                     </tr>
 
@@ -291,7 +320,7 @@ session_start();
                         <td>Favorecidos Juridicos</td>
                         <td>
                             <?php
-				            //echo "Favorecidos Juridicos-----------------------------------------------------<br>";}
+				            //echo "Favorecidos Juridicos-------------------------------------
 				            $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras[0]);
 
 				            while($filaf = $dataFavorecidos->fetch_array())
@@ -302,11 +331,8 @@ session_start();
 									echo $nombreJuridico['razon_social'];
 				                
 				            ?>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir
-                                Nombre</button>
-                            <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('../controller/eliminarJuridicoF.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=600, height=600, scrollbars=NO');">
+                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');">Corregir Nombre</button>
+                            <button name="boton1" class="btn btn-success" type="button" onclick="javascript:window.open('../controller/eliminarJuridicoF.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=600, height=600, scrollbars=NO');">
                                 X </button>
                             <?php
 				                echo "<br>";
@@ -316,31 +342,34 @@ session_start();
                         </td>
                         <td>
                             <button name="boton1" class="btn btn-success" type="button"
-                                onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');">Add
-                                Favorecido Juridico</button>
+                                onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');"><span class="glyphicon glyphicon-briefcase"></span> Fav. Juridico</button>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
-        <br>
 
         <div class="part2">
             <div class="center">
+            <form action="" method="post">
+                <input type="hidden" name="codigoPersonal" value="<?php echo $codigoPersonal;?>" />
+                <input type="hidden" name="codigoEscritura" value="<?php echo $lista[$cont];?>" />
 
                 <table>
                     <tr>
                         <td>Nombre de Bien: *</td>
-                        <td><input type="text" name="nombreBien" value="<?php echo $detalleEscrituras[4];?>"
-                                size="100" /></td>
+                        <td>
+                            <input type="text" name="nombreBien" value="<?php echo $detalleEscrituras[4];?>" size="150" />
+                            <button class="btn btn-primary" type="submit" name="btnNombreBien" id="btnNombreBien"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                        </td>
                     </tr>
                     <tr>
                         <td>Sub Serie: *</td>
                         <td>
                             <?php 
-													$subserie = $escritura->VerSubserie($detalleEscrituras[3]);
-													echo $subserie['subserie'];
-												?>
+                                $subserie = $escritura->VerSubserie($detalleEscrituras[3]);
+								echo $subserie['subserie'];
+							?>
                             <input name="boton1" size="10" type="button"
                                 onclick="javascript:window.open('CambiarSubserie.php?cod_sct=<?php echo $detalleEscrituras[0];?>','','width=800, height=500, scrollbars=YES');"
                                 value="Cambiar la serie" />
@@ -383,35 +412,18 @@ session_start();
                         <td><?php echo $datosproyecto[1];?></td>
                     </tr>
                     <tr>
+                        <td>Observaciones:</td>
+                        <td><?php echo $detalleEscrituras[6];?></td>
+                    </tr>
+                    <tr>
                         <td>Observaciones del Libro:</td>
                         <td><?php echo $datosproyecto[4];?></td>
                     </tr>
 
                 </table>
-
-            </div>
-            <br>
-            <div class="OBS">
-                <div class="left2">
-                    <p>Observaciones</p>
-                    <TEXTAREA name="observaciones">
-			                                      <?php echo $detalleEscrituras[6];?>
-			                                </TEXTAREA>
-                    <input type="submit" name="btnGuardarCambios" value="Guardar Cambios" />
-                </div>
-            </div>
+            </form>
         </div>
         
-
-        <!-- FORMLARIO PARA GUARDAR LAS CORRECCIONES HECHAS EN EL FORMULARIO -->
-        <form action="" method="post" name="contador">
-            <div class="right2">
-                <p>Correcciones</p>
-                <textarea name="correcciones"></textarea>
-                <input type="submit" name="btnCorrecciones" value="Guardar Correcciones" />
-            </div>
-
-        </form>
     </div>
 
 </body>
