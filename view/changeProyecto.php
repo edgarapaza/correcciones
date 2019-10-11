@@ -139,8 +139,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
@@ -220,9 +219,7 @@ session_start();
                     <input type="hidden" name="contador" value="<?php echo $cont ?>">
                 </form>
             </div>
-
             <div class="col-md-3">
-                <em>Sistema de Revision de Protocolos</em>
                 <form action="" method="post">
                     <input type="hidden" name="codigoPersonal" value="<?php echo $codigoPersonal;?>" />
                     <input type="hidden" name="codigoEscritura" value="<?php echo $lista[$cont];?>" />
@@ -267,11 +264,6 @@ session_start();
             </div>
             <div class="col-md-8">
                 <table>
-                    <tr>
-                        <th width="90%">Datos de la Escritura</th>
-                        <th width="10%">Opc</th>
-                    </tr>
-
                     <?php
 						//echo "Otorgantes -----------------------------------------------
                         $dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
@@ -280,16 +272,15 @@ session_start();
 						{
 							if($filao['cod_inv'] != 0)
 							{
-								$nombre = $escritura->VerNombre($filao['cod_inv']);
-								
+							    $nombre = $escritura->VerNombre($filao['cod_inv']);
                     ?>
 
                     <tr class="bg-danger">
                         <td>
-                            <span class="etiquetas">Otorgantes <br> </span>
+                            <span class="etiquetas">Otorgantes</span> <br>
                             <?php echo $nombre['nombre'];?>
                         </td>
-                        <td>
+                        <td width="10%">
                             <button name="boton1" class="btn btn-primary" type="button" onclick="javascript:window.open('./modificarNombres.php?cod_usu=<?php echo $filao['cod_inv'];?>','','width=800, height=500, scrollbars=YES');"> <span class="glyphicon glyphicon-edit"></span> </button>
                             <button name="boton1" class="btn btn-danger" type="button" onclick="javascript:window.open('../controller/eliminarNombre.php?codigoInvolucrado=<?php echo $filao['cod_inv'];?>&codigoEscritura=<?php echo $lista[$cont];?>','','width=500, height=200, scrollbars=NO');"> <span class="glyphicon glyphicon-trash"></span> </button>
                         </td>
@@ -299,17 +290,14 @@ session_start();
 							echo "<br>";
 							}
 						}
-                        ?>
                     
-                    <?php
-
 					    $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras[0]);
 
-                          while($filaf = $dataFavorecidos->fetch_array())
-					          {
-								  if($filaf['cod_inv'] != 0)
-					              {
-								  	$nombre = $escritura->VerNombre($filaf['cod_inv']);
+                        while($filaf = $dataFavorecidos->fetch_array())
+					    {
+							if($filaf['cod_inv'] != 0)
+					        {
+							    $nombre = $escritura->VerNombre($filaf['cod_inv']);
                     ?>
 
                     <tr class="bg-success">
@@ -324,22 +312,18 @@ session_start();
                         </td>
                     </tr>
                     <?php
-					            echo "<br>";
-					              }
-					          }
-                    ?>
-                        
-                        <?php
-				            //echo "Otorgantes Juridicos---------------------------------------------------";
-				          	$dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
+					        echo "<br>";
+					        }
+					    }
+                  
+				        //echo "Otorgantes Juridicos---------------------------------------------------";
+				        $dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
 
-				            while($filaoj = $dataOtorgantes->fetch_array())
+				        while($filaoj = $dataOtorgantes->fetch_array())
+				        {
+				            if($filaoj['cod_inv_ju'] != 0)
 				            {
-				                if($filaoj['cod_inv_ju'] != 0)
-				                {
-									$nombreJuridico = $escritura->VerNombreJuridico($filaoj['cod_inv_ju']);
-									
-				                
+								$nombreJuridico = $escritura->VerNombreJuridico($filaoj['cod_inv_ju']);        
                         ?>
 
                     <tr>
@@ -357,9 +341,7 @@ session_start();
                     <?php
                             }
                         }
-                    ?>
-
-                    <?php
+                
 				            //echo "Favorecidos Juridicos-------------------------------------
 				            $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras[0]);
 
@@ -368,8 +350,6 @@ session_start();
 				                if($filaf['cod_inv_ju'] != 0)
 				                {
 									$nombreJuridico = $escritura->VerNombreJuridico($filaf['cod_inv_ju']);
-									
-				                
                     ?>
                     
                     <tr>
@@ -378,10 +358,8 @@ session_start();
                             <?php echo $nombreJuridico['razon_social'];?>
                         </td>
                         <td>
-                            
                             <button name="boton1" class="btn btn-primary" type="button" onclick="javascript:window.open('./modificarNombresJuridicos.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>','','width=1100, height=400, scrollbars=YES');"> <span class="glyphicon glyphicon-edit"></span></button>
                             <button name="boton1" class="btn btn-danger" type="button" onclick="javascript:window.open('../controller/eliminarJuridicoF.php?cod_inv=<?php echo $filaf['cod_inv_ju'];?>&cod_sct=<?php echo $lista[$cont];?>','','width=600, height=600, scrollbars=NO');"> <span class="glyphicon glyphicon-trash"></span> </button>
-                            
                         </td>
                     </tr>
                     <?php
