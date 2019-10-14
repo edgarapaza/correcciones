@@ -30,7 +30,7 @@ class AddPersonaClass
     
     public function AgregarOtorganteJuridico($cod_sct,$cod_per,$cod_inv_ju) {
         
-        $sql = "INSERT INTO dbarp.escriotor1 (cod_sct,cod_inv,cod_per,cod_inv_ju) VALUES ($cod_sct,0,$cod_per,$cod_inv_ju);";
+        $sql = "INSERT INTO dbarp.escriotor1 (cod_sct,cod_per,cod_inv_ju) VALUES ($cod_sct,$cod_per,$cod_inv_ju);";
         if(!$result = $this->conn->query($sql)){
             echo "Error Agregando Otorgante Juridico";
         }
@@ -39,11 +39,47 @@ class AddPersonaClass
     
     public function AgregarFavorecidoJuridico($cod_sct,$cod_per,$cod_inv_ju) {
         
-        $sql = "INSERT INTO dbarp.escrifavor1 (cod_sct,cod_inv,cod_per,cod_inv_ju) VALUES ($cod_sct,0,$cod_per,$cod_inv_ju);";
+        $sql = "INSERT INTO dbarp.escrifavor1 (cod_sct,cod_per,cod_inv_ju) VALUES ($cod_sct,$cod_per,$cod_inv_ju);";
         if(!$result = $this->conn->query($sql)){
             echo "Error Agregando Favorecido Juridico";
         }
         
+    }
+
+    public function NuevoFavorecidoJuridico($cod_sct,$cod_per,$razonsocial) {
+        echo $razonsocial;
+        $sql1 = "INSERT INTO dbarp.involjuridicas1 (Raz_inv) VALUES ('$razonsocial');";
+        if(!$this->conn->query($sql1)){
+            echo "Error Agregando Nuevo Favorecido Juridico";
+        }
+
+        $ultimosql = "SELECT * FROM dbarp.involjuridicas1 WHERE Raz_inv = '$razonsocial';";
+        $data = $this->conn->query($ultimosql);
+        $fila = $data->fetch_array();
+        echo "Codigo Generado:" . $fila[0];
+
+        $sql = "INSERT INTO dbarp.escrifavor1 (cod_sct,cod_inv, cod_per,cod_inv_ju) VALUES ($cod_sct,0,$cod_per,$fila[0]);";
+        if(!$this->conn->query($sql)){
+            echo "Error Agregando Codigo de Favorecido Juridico";
+        }
+    }
+
+    public function NuevoOtorganteJuridico($cod_sct,$cod_per,$razonsocial) {
+        echo $razonsocial;
+        $sql1 = "INSERT INTO dbarp.involjuridicas1 (Raz_inv) VALUES ('$razonsocial');";
+        if(!$this->conn->query($sql1)){
+            echo "Error Agregando Nuevo Favorecido Juridico";
+        }
+
+        $ultimosql = "SELECT * FROM dbarp.involjuridicas1 WHERE Raz_inv = '$razonsocial';";
+        $data = $this->conn->query($ultimosql);
+        $fila = $data->fetch_array();
+        echo "Codigo Generado:" . $fila[0];
+
+        $sql = "INSERT INTO dbarp.escriotor1 (cod_sct,cod_inv, cod_per,cod_inv_ju) VALUES ($cod_sct,0,$cod_per,$fila[0]);";
+        if(!$this->conn->query($sql)){
+            echo "Error Agregando Codigo de Favorecido Juridico";
+        }
     }
 
     public function ModificarJuridico($cod_inv, $razon)
@@ -80,19 +116,26 @@ class AddPersonaClass
     public function Duplicados($nombre='',$paterno='',$materno='') {
         $sql="SELECT cod_inv FROM involucrados1 WHERE nom_inv = '$nombre' and pat_inv = '$paterno' and mat_inv = '$materno';";
         
-        $dato = $this->conn->query($sql);
-        $numero = $dato->num_rows;
-     
-        if($numero > 0)
-        {
-            return TRUE;
+        if(!$dato = $this->conn->query($sql)){
+            echo "Error buscando en lista de involiucrados";
         }
-        else
-        {
-            return FALSE;
-        }
+
+        //$numero = $dato->num_rows;
+        return $dato;
     }
-    
+        
+    public function DuplicadosJuridicos($razonsocial)
+    {
+        $sql = "SELECT Cod_inv, Raz_inv FROM dbarp.involjuridicas1 WHERE Raz_inv = '$razonsocial';";
+
+        if(!$dato = $this->conn->query($sql)){
+            echo "Error buscando en lista de involiucrados";
+        }
+
+        //$numero = $dato->num_rows;
+        return $dato;
+    }
+
     public function NuevaPersona($Pat_inv, $Mat_inv, $Nom_inv){
         $sql = "INSERT INTO dbarp.involucrados1 (Pat_inv,Mat_inv,Nom_inv) VALUES ('$Pat_inv', '$Mat_inv', '$Nom_inv')";
         if(!$this->conn->query($sql)){

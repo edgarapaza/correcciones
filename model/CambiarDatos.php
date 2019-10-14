@@ -51,7 +51,8 @@ class CambiarDatos
     }
 
     public function CambiarNombreBien($codEscritura, $nombreBien) {
-        $sql= "UPDATE dbarp.escrituras1 SET nom_bie = 'strtoupper($nombreBien)' WHERE cod_sct = $codEscritura LIMIT 1;";
+        $bien = strtoupper($nombreBien);
+        $sql= "UPDATE dbarp.escrituras1 SET nom_bie = '$bien' WHERE cod_sct = $codEscritura LIMIT 1;";
 
         if(!$this->conn->query($sql)){
             echo "Error Cambiando el Nombre del bien";

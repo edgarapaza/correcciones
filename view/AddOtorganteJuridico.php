@@ -9,12 +9,14 @@ $result = $obj->BuscarJuridico($razonSocial);
 
 $codEscritura = $_REQUEST['cod_sct'];
 $codPersonal = $_REQUEST['cod_per'];
+$razonsocial = $_REQUEST['razonsocial'];
 
 if(isset($_REQUEST['btnBuscar']))
 {
 	$razon = $_REQUEST['razonsocial'];
-	
-        $nexo = "%";
+    $obj = new AddPersonaClass();
+    
+    $nexo = "%";
 	$sinEspacios = trim($razon);
 	$nom_temp = explode(" ", $sinEspacios);
 	$razonSocial = implode($nexo, $nom_temp);
@@ -40,7 +42,8 @@ if(isset($_REQUEST['btnBuscar']))
         }
     }
     </script>
-    <link rel="stylesheet" type="text/css" href="./css/formulario.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstarp.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/formulario.css">
 </head>
 
 <body>
@@ -48,19 +51,13 @@ if(isset($_REQUEST['btnBuscar']))
         <input type="hidden" name="cod_sct" value="<?php echo $codEscritura; ?>" />
         <input type="hidden" name="cod_per" value="<?php echo $codPersonal; ?>" />
 
-        <div class="formulario">
+        <div>
             <div class="formulario">
-                <ul>
-                    <li>
-                        <h2>Agregar Otorgante Juridico</h2>
-                        <span class="required">Datos requeridos</span>
-                    </li>
-                    <li> <label for="name">Razon Social:</label> <input type="text" name="razonsocial"
-                            placeholder="Escriba la Razon Social de la empresa o institucion" required="required"
-                            size="80" /> </li>
-                    <li> <button class="submit" type="submit" name="btnBuscar" value="Buscar">Buscar Otorgante
-                            Juridico</button>
-                </ul>
+                <h2>Agregar Otorgante Juridico</h2>
+                <span >Datos requeridos</span>
+                <label for="name">Razon Social:</label>
+                <input type="text" name="razonsocial" placeholder="Nombre de Razon Social de la empresa o institucion" required="required" size="80" />
+                <button type="submit" name="btnBuscar" class="btn btn-primary">Buscar Otorgante Juridico</button>
             </div>
     </form>
 
@@ -82,17 +79,27 @@ if(isset($_REQUEST['btnBuscar']))
                         <input type="hidden" name="cod_sct" value="<?php echo $codEscritura; ?>" />
                         <input type="hidden" name="cod_per" value="<?php echo $codPersonal; ?>" />
 
-                        <a href="AddPersonaJuridicaO.php?cod_sct=<?php echo $codEscritura; ?>&codigojuridico=<?php echo $fila['Cod_inv']; ?>&cod_per=<?php echo $codPersonal; ?>">Agregar >></a>
+                        <a
+                            href="AddPersonaJuridicaO.php?cod_sct=<?php echo $codEscritura; ?>&codigojuridico=<?php echo $fila['Cod_inv']; ?>&cod_per=<?php echo $codPersonal; ?>">Agregar
+                            >></a>
 
                     </td>
 
                 </tr>
                 <?php
 		        }
+				if($result->num_rows == 0)
+                {
 				?>
+				<div class="alert">
+					<h4>El nombre no existe.  Desea agregarlo a la Base de Datos?</h4>
+					<a href="NewPersonaJuridica_o.php?razonsocial=<?php echo $razonsocial; ?>&cod_sct=<?php echo $codEscritura; ?>&cod_per=<?php echo $codPersonal; ?>"> PRESIONE AQUI </a>
+				</div>
+	            <?php } ?>
             </table>
         </div>
-	</form>
-	
+    </form>
+
 </body>
+
 </html>
