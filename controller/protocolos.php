@@ -3,7 +3,6 @@ session_start();
 
 require "../model/UbicarProtocolo.php";
 
-
 if(isset($_REQUEST['revisar']))
 {
     $numeroProtocolo = $_REQUEST["protocolo"];
@@ -13,8 +12,8 @@ if(isset($_REQUEST['revisar']))
     $infoProyecto = $ubicarprotocolo->BuscarProyecto($numeroProtocolo);
     $infoProtocolo = $ubicarprotocolo->BuscarProtocolo($numeroProtocolo);
 
-    echo "Con proyecto: ".$datos1[0];
-    echo "Sin Proyecto: ".$datos2[0];
+    echo "con proyecto".$infoProyecto[0];
+    echo "sin proyecto".$infoProtocolo[0];
 
     if($infoProyecto){
         echo "Redireccionar a Proyecto";
@@ -27,7 +26,7 @@ if(isset($_REQUEST['revisar']))
         $_SESSION['protocolo'] = $numeroProtocolo;
         header("Location: ../view/changeProtocolo.php");
     }
-        
+      
     /*
     $nombre_archivo = 'protocolo.txt';
     $contenido = $numeroProtocolo;
