@@ -11,11 +11,13 @@ class CambiarDatos
     }
 
     public function CambiarFolio ($codEscritura, $numeroFolio) {
-        $sql= "UPDATE dbarp.escrituras1 SET num_fol = $numeroFolio WHERE cod_sct = $codEscritura LIMIT 1;";
+        $sql= "UPDATE dbarp.escrituras1 SET num_fol = '$numeroFolio' WHERE cod_sct = $codEscritura LIMIT 1;";
 
         if(!$this->conn->query($sql)){
-            echo "Error Cambiando el Folio";
+            echo "Error Cambiando el Folio". mysqli_error($this->conn);
+
         }
+        mysqli_close($this->conn);
     }
 
     public function CambiarNumeroEscritura ($codEscritura, $numeroEscritura) {
@@ -24,6 +26,7 @@ class CambiarDatos
         if(!$this->conn->query($sql)){
             echo "Error Cambiando el Numero de la Escritura";
         }
+         mysqli_close($this->conn);
     }
 
     public function CambiarCantidadFolios ($codEscritura, $cantidadFolios) {
@@ -32,6 +35,7 @@ class CambiarDatos
         if(!$this->conn->query($sql)){
             echo "Error Cambiando la Cantidad de Folios";
         }
+        mysqli_close($this->conn);
     }
 
     public function CambiarFechaDocumento ($codEscritura, $fechaDocumento) {
@@ -40,6 +44,7 @@ class CambiarDatos
         if(!$this->conn->query($sql)){
             echo "Error Cambiando la Fecha del Documento";
         }
+         mysqli_close($this->conn);
     }
 
     public function CambiarSubSerie ($codEscritura, $codigoSubSerie) {
@@ -48,6 +53,7 @@ class CambiarDatos
         if(!$this->conn->query($sql)){
             echo "Error Cambiando el Codigo de la sub Serie";
         }
+        mysqli_close($this->conn);
     }
 
     public function CambiarNombreBien($codEscritura, $nombreBien) {
@@ -57,6 +63,7 @@ class CambiarDatos
         if(!$this->conn->query($sql)){
             echo "Error Cambiando el Nombre del bien";
         }
+        mysqli_close($this->conn);
     }
 
 }
