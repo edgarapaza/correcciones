@@ -3,7 +3,7 @@ require '../model/AddPersonaClass.php';
 
 $escritura = $_REQUEST['cod_sct'];
 $involucrado = $_REQUEST['involucrado'];
-$personal = $_REQUEST['cod_per'];
+$personal = 1101;
 
 /*echo "Escritura:".$escritura;
 echo "Involucrado:".$involucrado;
