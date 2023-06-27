@@ -3,28 +3,33 @@ require '../model/AddPersonaClass.php';
 $codEscritura = $_REQUEST['codigoEscritura'];
 $codPersonal = $_REQUEST['codigoPersonal'];
 
-$nom_corregido = "TERESA";
-$paterno = "QUISPE";
-$materno = "C";
-
 $addpersona = new AddPersonaClass();
-$data = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
+//$datos = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
 
 if(isset($_REQUEST['btnBuscar']))
 {
-	$nombre = $_REQUEST['nombre'];
+	
+	$nombre   = $_REQUEST['nombre'];
 	$paterno1 = $_REQUEST['paterno'];
 	$materno1 = $_REQUEST['materno'];
 
-	$nexo = "%";
-	$sinEspacios = trim($nombre);
-	$nom_temp = explode(" ", $sinEspacios);
-	$nom_corregido = implode($nexo, $nom_temp);
+	if(empty($nombre) && empty($paterno1) && empty($materno1)){
+		$nom_corregido = "%";
+		$datos = $addpersona->BuscarCompleto($nom_corregido,'','');
+	}else{
+		echo "nombre envoado";
+		$nexo          = "%";
+		$sinEspacios   = trim($nombre);
+		$nom_temp      = explode(" ", $sinEspacios);
+		$nom_corregido = implode($nexo, $nom_temp);
 
-	$paterno = trim($paterno1);
-	$materno = trim($materno1);
+		$paterno = trim($paterno1);
+		$materno = trim($materno1);
 
-	$data = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
+		$datos = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
+	}
+
+	
 	/*
 	if($materno != null)
 	{
@@ -55,18 +60,15 @@ if(isset($_REQUEST['btnBuscar']))
             <table class="table">
                 <tr>
                     <td>Nombres</td>
-                    <td><input type="text" name="nombre" placeholder="Escriba el Nombre"
-                        required="required"></td>
+                    <td><input type="text" name="nombre" placeholder="Escriba el Nombre"></td>
                 </tr>
                 <tr>
                     <td>Paterno</td>
-                    <td><input type="text" name="paterno"
-                        placeholder="Escriba Apellido Paterno" required="required"></td>
+                    <td><input type="text" name="paterno" placeholder="Escriba Apellido Paterno"></td>
                 </tr>
                 <tr>
                     <td>Materno</td>
-                    <td><input type="text" name="materno"
-                        placeholder="Escriba Apellido Materno" require="required"></td>
+                    <td><input type="text" name="materno" placeholder="Escriba Apellido Materno"></td>
                 </tr>
                 <tr>
                     <td><button class="button" type="button" name="btnCancelar" >Cancelar</button></td>
@@ -86,33 +88,30 @@ if(isset($_REQUEST['btnBuscar']))
 				<th>Apellido Materno</th>
 				<th width="80">Opciones</th>
 			</tr>
-				<?php while($fila = $data->fetch_array(MYSQLI_ASSOC))
-	            	    {
-				?>
+				
 			<tr>
-				<td><?php echo $fila['Nom_inv'];?></td>
-				<td><?php echo $fila['Pat_inv'];?></td>
-				<td><?php echo $fila['Mat_inv'];?></td>
-	                        <td>
-	                            <input type="hidden" name="involucrado" value="<?php echo $fila['Cod_inv']; ?>" />
-	                            <input type="hidden" name="cod_sct" value="<?php echo $codEscritura; ?>" />
-	                            <input type="hidden" name="cod_per" value="<?php echo $codPersonal; ?>" />
-	                            <a href="AddPersonaF.php?codigoEscritura=<?php echo $codEscritura; ?>&codigoInvolucrado=<?php echo $fila['Cod_inv']; ?>&codigoPersonal=<?php echo $codPersonal; ?>" onclick="Confirmar()">Agregar >></a>
-	                            
-	                        </td>
-	                        
-			</tr>
-	                                <?php
-	                                }
-									
-									if($data->num_rows == 0)  
-	                                {
-									?>
-									<div class="alert">
-										<h4>El nombre no existe.  Desea agregarlo a la Base de Datos?</h4>
-										<a href="NewPerson_f.php?nombre=<?php echo $nombre; ?>&paterno=<?php echo $paterno; ?>&materno=<?php echo $materno; ?>&cod_sct=<?php echo $codEscritura; ?>&cod_per=<?php echo $codPersonal; ?>"> PRESIONE AQUI </a>
-									</div>
-	                                <?php } ?>
+				<td><?php echo $datos['Nom_inv'];?></td>
+				<td><?php echo $datos['Pat_inv'];?></td>
+				<td><?php echo $datos['Mat_inv'];?></td>
+				<td>
+	             	<input type="hidden" name="involucrado" value="<?php echo $datos['Cod_inv']; ?>" />
+	                <input type="hidden" name="cod_sct" value="<?php echo $codEscritura; ?>" />
+	                <input type="hidden" name="cod_per" value="<?php echo $codPersonal; ?>" />
+	                <a href="AddPersonaF.php?codigoEscritura=<?php echo $codEscritura; ?>&codigoInvolucrado=<?php echo $datos['Cod_inv']; ?>&codigoPersonal=<?php echo $codPersonal; ?>" onclick="Confirmar()">Agregar >></a>            
+	            </td>
+	            </tr>
+					<?php
+						if(empty($datos)){
+							#echo "Vacio";
+					?>
+						<div class="alert">
+							<h4>El nombre no existe.  Desea agregarlo a la Base de Datos?</h4>
+							<a href="NewPerson_f.php?nombre=<?php echo $nombre; ?>&paterno=<?php echo $paterno; ?>&materno=<?php echo $materno; ?>&cod_sct=<?php echo $codEscritura; ?>&cod_per=<?php echo $codPersonal; ?>"> PRESIONE AQUI </a>
+						</div>
+					<?php						
+						}
+					?>
+
 		</table>
 	</div>
 	</form>

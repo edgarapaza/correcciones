@@ -22,7 +22,7 @@ $cod_per = $_REQUEST['cod_per'];
 			
 	    	<div class="formulario">
 				<table>
-					<tr>
+					<tr> 
 						<td>Nombre:</td>
 						<td><input type="text" name="nombre" value="<?php echo $nombre;?>"></td>
 					</tr>

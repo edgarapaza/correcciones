@@ -6,38 +6,27 @@ class EliminarClass
         
         function __construct(){
             
-            $conection = new Conexion();
-            $this->conn= $conection->Conectar();
+            $this->conn = new Conexion();
             return $this->conn;
     }
 
     public function BorrarOtorgante($codEscritura, $codInvolucrado) {
         $sql= "DELETE FROM escriotor1 WHERE cod_inv = $codInvolucrado AND cod_sct = $codEscritura LIMIT 1;";
-        if(!$this->conn->query($sql)){
-            echo "Error Borrando el Otorgante.";
-        }
-        
+        $this->conn->ConsultaSin($sql);
     }
     
     public function BorrarFavorecido($codEscritura, $codInvolucrado) {
         $sql= "DELETE FROM escrifavor1 WHERE cod_inv = $codInvolucrado AND cod_sct = $codEscritura LIMIT 1;";
-        if(!$this->conn->query($sql)){
-            echo "Error borrando el Favorecido";
-        }
+        $this->conn->ConsultaSin($sql);
     }
     
     public function BorrarOtorganteJuridico($codEscritura, $codInvolucrado) {
         $sql= "DELETE FROM escriotor1 WHERE cod_inv_ju = $codInvolucrado AND cod_sct = $codEscritura LIMIT 1;";
-        if($this->conn->query($sql)){
-            echo "Error Eliminando el Otorgante Juridico";
-        }
+        $this->conn->ConsultaSin($sql);
     }
     
     public function BorrarFavorecidoJuridico($codEscritura, $codInvolucrado) {
         $sql= "DELETE FROM escrifavor1 WHERE cod_inv_ju = $codInvolucrado AND cod_sct = $codEscritura LIMIT 1;";
-        if(!$this->conn->query($sql))
-        {
-            echo "Error Eliminando el Favorecido Juridico";
-        }
+        $this->conn->ConsultaSin($sql);
     }
 }

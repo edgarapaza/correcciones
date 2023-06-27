@@ -188,6 +188,9 @@ session_start();
                         <li>
                             <a href="#" onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');">Agregar Favorecido Juridico</a>
                         </li>
+                        <li>
+                            <a href="#" onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');">Nueva Persona</a>
+                        </li>
                         <li role="separator" class="divider"></li>
                         <li><a href="../controller/sesionClose.php">Salir</a></li>
                     </ul>
@@ -203,7 +206,9 @@ session_start();
                 <span class="etiquetas"><?php echo $lista[$cont];?></span>
             </div>
             <div class="col-md-5">
-                <p>Numero de Escrituras: <span class="header-text"><?php echo $numeroArray; ?></span>  | Numero de Protocolo: <span class="header-text"><?php echo $datosproyecto[3]; ?></span></p>
+                <!-- #proy_id, proy_nombre, not_id, num_protocolo, observaciones, estado -->
+                <p>Numero de Escrituras: <span class="header-text">
+                    <?php echo $numeroArray; ?></span>  | Numero de Protocolo: <span class="header-text"><?php echo $datosproyecto['num_protocolo']; ?></span></p>
             </div>
         </div>
 
@@ -226,7 +231,8 @@ session_start();
                     <table>
                         <tr>
                             <td>Folio:</td>
-                            <td><input type="text" name="numeroFolio" value="<?php echo $detalleEscrituras[7]; ?>"
+                            
+                            <td><input type="text" name="numeroFolio" value="<?php echo $detalleEscrituras['num_fol']; ?>"
                                     class="form-control" /></td>
                             <td>
                                 <button class="btn btn-primary" type="submit" name="btnFolio" id="btnFolio"><span class="glyphicon glyphicon-ok-circle"></span></button>
@@ -234,7 +240,8 @@ session_start();
                         </tr>
                         <tr>
                             <td>Escritura:</td>
-                            <td><input type="text" name="numeroEscritura" value="<?php echo $detalleEscrituras[1];?>"
+                            
+                            <td><input type="text" name="numeroEscritura" value="<?php echo $detalleEscrituras['num_sct'];?>"
                                     class="form-control" />
                             </td>
                             <td>
@@ -243,7 +250,8 @@ session_start();
                         </tr>
                         <tr>
                             <td>Total Folios:</td>
-                            <td><input type="text" name="cantidadFolios" value="<?php echo $detalleEscrituras[5];?>"
+                            
+                            <td><input type="text" name="cantidadFolios" value="<?php echo $detalleEscrituras['can_fol'];?>"
                                     class="form-control" />
                             </td>
                             <td>
@@ -252,7 +260,8 @@ session_start();
                         </tr>
                         <tr>
                             <td>Fecha:</td>
-                            <td><input type="date" name="fechaDocumento" value="<?php echo $detalleEscrituras[2];?>"
+                            
+                            <td><input type="date" name="fechaDocumento" value="<?php echo $detalleEscrituras['fec_doc'];?>"
                                     class="form-control" />
                             </td>
                             <td>
@@ -266,7 +275,8 @@ session_start();
                 <table>
                     <?php
 						//echo "Otorgantes -----------------------------------------------
-                        $dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
+                        #cod_sct,num_sct,fec_doc,cod_sub,nom_bie,can_fol,obs_sct,num_fol,cod_usu,hra_ing, proy_id
+                        $dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras['cod_sct']);
                         
 						while($filao = $dataOtorgantes->fetch_array(MYSQLI_ASSOC))
 						{
@@ -291,7 +301,7 @@ session_start();
 							}
 						}
                     
-					    $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras[0]);
+					    $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras['cod_sct']);
 
                         while($filaf = $dataFavorecidos->fetch_array())
 					    {
@@ -317,7 +327,7 @@ session_start();
 					    }
                   
 				        //echo "Otorgantes Juridicos---------------------------------------------------";
-				        $dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras[0]);
+				        $dataOtorgantes = $escritura->ListadoOtorgantes($detalleEscrituras['cod_sct']);
 
 				        while($filaoj = $dataOtorgantes->fetch_array())
 				        {
@@ -343,7 +353,7 @@ session_start();
                         }
                 
 				            //echo "Favorecidos Juridicos-------------------------------------
-				            $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras[0]);
+				            $dataFavorecidos = $escritura->ListadoFavorecido($detalleEscrituras['cod_sct']);
 
 				            while($filaf = $dataFavorecidos->fetch_array())
 				            {
@@ -381,15 +391,17 @@ session_start();
                     <tr>
                         <td>Nombre de Bien: *</td>
                         <td>
-                            <input type="text" name="nombreBien" value="<?php echo $detalleEscrituras[4];?>" size="150" />
+                        
+                            <input type="text" name="nombreBien" value="<?php echo $detalleEscrituras['nom_bie'];?>" size="150" />
                             <button class="btn btn-primary" type="submit" name="btnNombreBien" id="btnNombreBien"><span class="glyphicon glyphicon-ok-circle"></span></button>
                         </td>
                     </tr>
                     <tr>
                         <td>Sub Serie: *</td>
                         <td>
+                        
                             <?php 
-                                $subserie = $escritura->VerSubserie($detalleEscrituras[3]);
+                                $subserie = $escritura->VerSubserie($detalleEscrituras['cod_sub']);
 								echo $subserie['subserie'];
                             ?>
                             <button class="btn btn-primary" type="submit" name="btnSubSerie" id="btnSubSerie" onclick="javascript:window.open('CambiarSubserie.php?cod_sct=<?php echo $detalleEscrituras[0];?>','','width=800, height=500, scrollbars=YES');"><span class="glyphicon glyphicon-ok-circle"></span></button>
@@ -399,18 +411,20 @@ session_start();
                         <td>Notario</td>
                         <td>
                             <?php 
-												$notario = $escritura->VerNotario($datosproyecto[2]);
-												echo $notario['notario'];
-											?>
+								$notario = $escritura->VerNotario($datosproyecto['not_id']);
+								echo $notario['notario'];
+							?>
                         </td>
                     </tr>
                     <tr>
                         <td>Distrito:</td>
                         <td>
+                            <!--
                             <?php
-													$distrito = $escritura->VerDistrito($datosproyecto[2]);
-													echo $distrito['des_dst'];
-												?>
+								#$distrito = $escritura->VerDistrito($datosproyecto['not_id']);
+								#echo $distrito['des_dst'];
+							?>
+                            -->
                         </td>
                     </tr>
 
@@ -418,26 +432,28 @@ session_start();
                         <td>Codigo Trabajador:</td>
                         <td>
                             <?php 
-													$trabajador = $escritura->VerTrabajador($detalleEscrituras[8]);
+                            
+													$trabajador = $escritura->VerTrabajador($detalleEscrituras['cod_usu']);
 													echo $trabajador['trabajador'];
 												?>
                         </td>
                     </tr>
                     <tr>
                         <td>Hora Ingreso:</td>
-                        <td><?php echo $detalleEscrituras[9];?></td>
+                        
+                        <td><?php echo $detalleEscrituras['hra_ing'];?></td>
                     </tr>
                     <tr>
                         <td>Numero de Proyecto:</td>
-                        <td><?php echo $datosproyecto[0];?></td>
+                        <td><?php echo $datosproyecto['proy_id'];?></td>
                     </tr>
                     <tr>
                         <td>Observaciones:</td>
-                        <td><?php echo $detalleEscrituras[6];?></td>
+                        <td><?php echo $detalleEscrituras['obs_sct'];?></td>
                     </tr>
                     <tr>
                         <td>Observaciones del Libro:</td>
-                        <td><?php echo $datosproyecto[4];?></td>
+                        <td><?php echo $datosproyecto['observaciones'];?></td>
                     </tr>
 
                 </table>

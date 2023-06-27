@@ -9,7 +9,7 @@ $paterno = "QUISPE";
 $materno = "C";
 
 $addpersona = new AddPersonaClass();
-$data = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
+$datos = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
 
 if(isset($_REQUEST['btnBuscar']))
 {
@@ -25,7 +25,7 @@ if(isset($_REQUEST['btnBuscar']))
 	$paterno = trim($paterno1);
 	$materno = trim($materno1);
 
-	$data = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
+	$datos = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
 	/*if($materno != null)
 	{
 		$data = $addpersona->BuscarCompleto($nom_corregido, $paterno, $materno);
@@ -91,31 +91,25 @@ if(isset($_REQUEST['btnBuscar']))
                     <th width="80">Opciones</th>
                 </tr>
                     
-                <?php
-				while($fila = $data->fetch_array(MYSQLI_ASSOC))
-	            {
-                ?>
-                
                 <tr>
-                    <td><?php echo $fila['Nom_inv'];?></td>
-                    <td><?php echo $fila['Pat_inv'];?></td>
-                    <td><?php echo $fila['Mat_inv'];?></td>
+                    <td><?php echo $datos['Nom_inv'];?></td>
+                    <td><?php echo $datos['Pat_inv'];?></td>
+                    <td><?php echo $datos['Mat_inv'];?></td>
                     <td>
-                        <input type="hidden" name="involucrado" value="<?php echo $fila['Cod_inv']; ?>" />
+                        <input type="hidden" name="involucrado" value="<?php echo $datos['Cod_inv']; ?>" />
                         <input type="hidden" name="cod_sct" value="<?php echo $codEscritura; ?>" />
                         <input type="hidden" name="cod_per" value="<?php echo $codPersonal; ?>" />
-                        <a href="AddPersonaO.php?cod_sct=<?php echo $codEscritura; ?>&involucrado=<?php echo $fila['Cod_inv']; ?>&cod_per=<?php echo $codPersonal; ?>"
+                        <a href="AddPersonaO.php?cod_sct=<?php echo $codEscritura; ?>&involucrado=<?php echo $datos['Cod_inv']; ?>&cod_per=<?php echo $codPersonal; ?>"
                             onclick="Confirmar()">Agregar >></a>
 
                     </td>
 
                 </tr>
+	                           
                 <?php
-	            }
-                                    
-                if($data->num_rows == 0)  
-	            {
-	            ?>
+						if(empty($datos)){
+							#echo "Vacio";
+					?>
 
                 <div class="alert">
                     <h4>El nombre no existe. Desea agregarlo a la Base de Datos?</h4>

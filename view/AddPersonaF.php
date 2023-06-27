@@ -1,9 +1,9 @@
 <?php
 require '../model/AddPersonaClass.php';
 
-$escritura = $_REQUEST['codigoEscritura'];
+$escritura   = $_REQUEST['codigoEscritura'];
 $involucrado = $_REQUEST['codigoInvolucrado'];
-$personal = $_REQUEST['codigoPersonal'];
+$personal    = $_REQUEST['codigoPersonal'];
 
 //echo "Escritura:".$escritura;
 //echo "Involucrado:".$involucrado;
