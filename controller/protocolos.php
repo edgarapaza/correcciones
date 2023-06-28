@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require "../model/UbicarProtocolo.php";
 
 if(isset($_REQUEST['revisar']))
@@ -10,18 +9,24 @@ if(isset($_REQUEST['revisar']))
     $ubicarprotocolo = new UbicarProtocolo();
     
     $infoProyecto = $ubicarprotocolo->BuscarProyecto($numeroProtocolo);
+    # buscarProyecto: proy_id, proy_nombre, not_id, num_protocolo, cod_usu, observaciones, estado
     $infoProtocolo = $ubicarprotocolo->BuscarProtocolo($numeroProtocolo);
+    # Buscar Protocolo: cod_pro
 
-    echo "con proyecto".$infoProyecto[0];
-    echo "sin proyecto".$infoProtocolo[0];
+    echo "con proyecto".$infoProyecto['proy_id'];
+    echo "sin proyecto".$infoProtocolo['cod_pro'];
 
-    if($infoProyecto){
+    if(isset($infoProyecto))
+    {
         echo "Redireccionar a Proyecto";
-        $_SESSION['proyecto'] = $infoProyecto[0];
+        $_SESSION['proyecto'] = $infoProyecto['proy_id'];
         header("Location: ../view/changeProyecto.php");
+    }else{
+
     }
         
-    if($infoProtocolo){
+    if(isset($infoProtocolo))
+    {
         echo "Redireccionar a protocolo";
         $_SESSION['protocolo'] = $numeroProtocolo;
         header("Location: ../view/changeProtocolo.php");

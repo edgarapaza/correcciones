@@ -1,13 +1,9 @@
 <?php
-require '../coreapp/Conexion.php';
-$conexion = new Conexion();
-$conn = $conexion->Conectar();
+require "../model/AddPersonaClass.php";
+$addpersona = new AddPersonaClass();
 
 $codigo = $_REQUEST['cod_usu'];
-
-$sql = "SELECT Cod_inv, Pat_inv, Mat_inv, Nom_inv FROM involucrados1 WHERE Cod_inv = $codigo;";
-$valores = $conn->query($sql);
-$datos = $valores->fetch_array(MYSQLI_ASSOC);
+$datos = $addpersona->ShowPersona($codigo);
 ?>
 
 <!DOCTYPE html>

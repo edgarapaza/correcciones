@@ -1,46 +1,12 @@
 <?php
-require '../coreapp/Conexion.php';
-$conexion = new Conexion();
-$conn = $conexion->Conectar();
+require "../model/changeJuridico.controller.php";
 
-$codigo = $_REQUEST['cod_inv'];
+echo $cod_juridico = $_REQUEST['cod_juridico'];
+echo $institucion = trim(strtoupper($_REQUEST['Raz_inv']));
+echo $otros   = trim(strtoupper($_REQUEST['otros_juri']));
 
-$sql = "SELECT Cod_inv, Raz_inv FROM involjuridicas1 WHERE Cod_inv = $codigo;";
-$valores = $conn->query($sql);
-$datos = $valores->fetch_array(MYSQLI_ASSOC);
+$changeJuri = new Changejuridico();
+$changeJuri->ChangeNombreJuridico($cod_juridico, $institucion, $otros);
+
+//header("Location: ../view/changeProyecto.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./css/formulario.css">
-</head>
-
-<body>
-
-    <h3>Modificar Datos del Sistema</h3>
-    <div class="general">
-        <form id="form1" name="form1" method="post" action="../controller/Juridicos.php">
-            <div class="formulario">
-                <ul>
-                    <li><span class="required">Datos requeridos</span>
-                    </li>
-                    <input type="hidden" name="cod_inv" value="<?php echo $datos['Cod_inv'];?>" />
-                    <li> <label for="razonsocial">Razon Social:</label> 
-                      <textarea name="razonsocial" id="nombres" cols="80" rows="10"><?php echo $datos['Raz_inv'];?> </textarea>
-                    </li>
-
-                    <li> <button class="submit" type="submit" name="btnGuardar" value="Guardar Cambios">Guardar
-                            Cambios</button>
-                </ul>
-            </div>
-        </form>
-    </div>
-</body>
-
-</html>

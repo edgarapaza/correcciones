@@ -1,26 +1,19 @@
 <?php
+require_once "../coreapp/Conexion.php";
 
-	/**
-	*
-	*/
-	class Validacion
+class Validacion
 	{
 
 		private $conn;
-        function __construct(){
-            require '../coreapp/Conexion.php';
-            $conection = new Conexion();
-            $this->conn= $conection->Conectar();
-            return $this->conn;
+		function __construct(){
+            $this->conn = new Conexion();
+            
         }
 
 		function ValidacionCuenta($user, $pass){
 			$sql = "SELECT cod_usu, niv_usu FROM usuarios WHERE log_usu='$user' AND psw_usu ='$pass' LIMIT 1";
-			$rpta = $this->conn->query($sql);
-            $data = $rpta->fetch_assoc();
+			$data = $this->conn->ConsultaArray($sql);
             return $data;
-
-            $mysqli->close();
 		}
 	}
 

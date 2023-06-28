@@ -15,8 +15,9 @@ class EscrituraClassProyecto
            return $result;
         }
 
-        function DatosProyecto($proyecto) {
-            $sql  = "SELECT proy_id, proy_nombre, not_id, num_protocolo, observaciones, estado FROM dbarp.proyectos WHERE proy_id = $proyecto;";
+        function DatosProyecto($proyecto)
+        {
+            $sql  = "SELECT proy_id, proy_nombre, not_id, num_protocolo, observaciones, estado FROM dbarp.proyectos WHERE proy_id = " .$proyecto;
             $result = $this->conn->ConsultaArray($sql);
             return $result;
         }

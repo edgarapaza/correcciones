@@ -7,7 +7,6 @@ class AddPersonaClass
         
     function __construct(){
         $this->conn = new Conexion();
-        return $this->conn;
     }
     
     public function AgregarOtorgante($cod_sct, $cod_inv, $cod_per) {
@@ -30,7 +29,8 @@ class AddPersonaClass
     
     public function AgregarFavorecidoJuridico($cod_sct,$cod_per,$cod_inv_ju) {
         
-        $sql = "INSERT INTO dbarp.escrifavor1 (cod_sct,cod_per,cod_inv_ju) VALUES ($cod_sct,$cod_per,$cod_inv_ju);";
+        $sql = "INSERT INTO dbarp.escrifavor1 VALUES (null,'$cod_sct','0','$cod_per','$cod_inv_ju');";
+        echo $sql;
         $this->conn->ConsultaSin($sql);
     }
 
@@ -106,4 +106,19 @@ class AddPersonaClass
         $this->conn->ConsultaSin($sql);
     }
 
+    public function ShowPersona($cod_usu)
+    {
+        $sql = "SELECT Cod_inv, Pat_inv, Mat_inv, Nom_inv FROM involucrados1 WHERE Cod_inv =" .$cod_usu;
+        $data = $this->conn->ConsultaArray($sql);
+        return $data;
+    }
+
+    public function ShowInstitucion($cod_juri)
+    {
+        $sql = "SELECT Cod_inv, Raz_inv, otros_juri FROM dbarp.involjuridicas1 WHERE Cod_inv = " .$cod_juri;
+        $data = $this->conn->ConsultaArray($sql);
+        return $data;
+    }
+
 }
+

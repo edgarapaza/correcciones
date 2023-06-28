@@ -6,14 +6,13 @@ $obj = new AddPersonaClass();
 $result = $obj->BuscarJuridico($razonSocial);
 
 $codEscritura = $_REQUEST['cod_sct'];
-$codPersonal = $_REQUEST['cod_per'];
-$razonsocial = $_REQUEST['razonsocial'];
+$codPersonal  = $_REQUEST['cod_per'];
+@$razonsocial  = $_REQUEST['razonsocial'];
 
 if(isset($_REQUEST['btnBuscar']))
 {
 	$razon = $_REQUEST['razonsocial'];
-	$obj = new AddPersonaClass();
-
+	
 	$nexo = "%";
 	$sinEspacios = trim($razon);
 	$nom_temp = explode(" ", $sinEspacios);
@@ -72,9 +71,7 @@ if(isset($_REQUEST['btnBuscar']))
 										
 		                                while($fila = $result->fetch_assoc())
 		                                {
-											if($fila < 0 ){
-												echo "vacio";
-											}
+											
 		                                ?>
                 <tr>
                     <td><?php echo $fila['Raz_inv'];?></td>
@@ -85,7 +82,7 @@ if(isset($_REQUEST['btnBuscar']))
 
                         <a
                             href="AddPersonaJuridicaF.php?cod_sct=<?php echo $codEscritura; ?>&codigojuridico=<?php echo $fila['Cod_inv']; ?>&cod_per=<?php echo $codPersonal; ?>">Agregar
-                            >></a>
+                            >> </a>
 
                     </td>
 

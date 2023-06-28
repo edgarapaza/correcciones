@@ -1,7 +1,6 @@
 <?php
 require '../coreapp/Conexion.php';
 $conexion = new Conexion();
-$conn = $conexion->Conectar();
 
 $codigo = $_REQUEST['cod_usu'];
 

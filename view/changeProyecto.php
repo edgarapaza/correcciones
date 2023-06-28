@@ -1,13 +1,10 @@
 <?php //MODO DE VISTA DEL PROTOCOLOS CREADOS CON PROYECTO
 session_start();
-    
-    $codigoPersonal = $_SESSION['administrator'];
+include "../model/EscrituraClassProyecto.php";
+include "../model/CambiarDatos.php";
 
-	include "../model/EscrituraClassProyecto.php";
-    include "../model/CambiarDatos.php";
-
-    $escritura = new EscrituraClassProyecto();
-
+$codigoPersonal = $_SESSION['administrator'];
+$escritura =new EscrituraClassProyecto();
     
     // Recoge el numero de protocolo de la session
 	$numeroProyecto = $_SESSION['proyecto'];
@@ -189,7 +186,7 @@ session_start();
                             <a href="#" onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');">Agregar Favorecido Juridico</a>
                         </li>
                         <li>
-                            <a href="#" onclick="javascript:window.open('AddFavorecidoJuridico.php?cod_sct=<?php echo $lista[$cont];?>&cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');">Nueva Persona</a>
+                            <a href="#" onclick="javascript:window.open('nuevaPersona.php?cod_per=<?php echo $codigoPersonal;?>','','width=800, height=500, scrollbars=NO');">Nueva Persona</a>
                         </li>
                         <li role="separator" class="divider"></li>
                         <li><a href="../controller/sesionClose.php">Salir</a></li>
